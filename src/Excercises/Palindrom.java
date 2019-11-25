@@ -1,6 +1,5 @@
 package Excercises;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Palindrom {
@@ -14,8 +13,6 @@ public class Palindrom {
         String[] letters = word.split("");
         for (int i = letters.length - 1; i >= 0; i--) {
             result = result + letters[i];
-
-
         }
         boolean compare = word.equals(result);
         System.out.println(compare);
