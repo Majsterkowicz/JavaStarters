@@ -2,11 +2,14 @@ package Objected;
 
 public class StudentRegister {
     public static void main(String[] args) {
-        Student student1 = new Student("Karol", "Kasztaniak" );
+
+        //   Student student1 = new Student("Karol", "Kasztaniak", 4.5);
+
+        //   showStudentData(student1);
     }
-    
 
     private static void showStudentData(Student student) {
-        System.out.println(student.getName() + " " + student.getSurname());
+        System.out.println(student.getName() + " " + student.getSurname() + " " + student.getMark1());
     }
+
 }
