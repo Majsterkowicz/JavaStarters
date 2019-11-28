@@ -1,23 +1,16 @@
 package Objected;
 
+import java.util.Arrays;
+
 public class Student {
     private String name;
     private String surname;
-    private double mark1;
-    //private double mark2;
-    //private double mark3;
-    //private double mark4;
-    //private double mark5;
+    private int[] marks;
 
-    public Student(String name, String surname, double mark) {
-        this.name = name;
+    public Student(String dupa, String surname, int[] marks) {
+        name = dupa;
         this.surname = surname;
-        this.mark1 = mark;
-        // this.mark2 = mark;
-        // this.mark3 = mark;
-        // this.mark4 = mark;
-        // this.mark5 = mark;
-
+        this.marks = marks;
     }
 
     public String getName() {
@@ -27,15 +20,24 @@ public class Student {
     public String getSurname() {
         return surname;
     }
-    public double getMark1(){
-        return mark1;
+
+    public int[] getMarks() {
+        return marks;
     }
 
-    public void setName() {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public void setSurname() {
+    public void setSurname(String surname) {
         this.surname = surname;
     }
+
+    public void setMarks(int[] marks) {
+        this.marks = marks;
+    }
+    public void showStudentData() {
+        System.out.println(name + " " + surname + " " + Arrays.toString(marks));
+    }
+
 }
