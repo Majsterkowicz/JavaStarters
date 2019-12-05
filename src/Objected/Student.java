@@ -6,7 +6,7 @@ public class Student {
     private String name;
     private String surname;
     private int[] marks;
-    private double average;
+   //private double average;
 
     public Student(String studentName, String surname, int[] marks) {
         name = studentName;
@@ -26,16 +26,16 @@ public class Student {
         return marks;
     }
 
-    public double getAverage() {
-        int i;
-        double sum = 0;
-        double average;
-        for (i = 0, i < marks.length, i++); {
+//    public double getAverage() {
+//        return average;
+//    }
 
-            sum += marks[i];
+    public double calculateAverage() {
+        double sum = 0;
+        for (int value : marks) {
+            sum += value;
         }
-        average = sum / i;
-        return average;
+        return sum / marks.length;
     }
 
     public void setName(String name) {
@@ -50,8 +50,12 @@ public class Student {
         this.marks = marks;
     }
 
+//    public void setAverage(double average) {
+//        this.average = average;
+//    }
+
     public void showStudentData() {
-        System.out.println(name + " " + surname + " " + Arrays.toString(marks) + average);
+        System.out.println(name + " " + surname + " " + Arrays.toString(marks) + calculateAverage());
     }
 
 }
