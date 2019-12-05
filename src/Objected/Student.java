@@ -6,11 +6,11 @@ public class Student {
     private String name;
     private String surname;
     private int[] marks;
-   //private double average;
+    //private double average;
 
-    public Student(String studentName, String surname, int[] marks) {
+    public Student(String studentName, String studentSurname, int[] marks) {
         name = studentName;
-        this.surname = surname;
+        surname = studentSurname;
         this.marks = marks;
     }
 
