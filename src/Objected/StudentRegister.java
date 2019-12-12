@@ -8,39 +8,45 @@ public class StudentRegister {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ilu studentów chcesz utworzyć?");
-        int studentNumber = scanner.nextInt();
+        int numberOfStudents = scanner.nextInt();
 
-        Student[] students = new Student[studentNumber];
+        Student[] students = new Student[numberOfStudents];
         int i = 0;
         int counter = i + 1;
 
+
+
         do {
             System.out.println("Wprowadzasz dane studenta nr " + counter);
+
             System.out.println("Podaj imię studenta");
             String name = scanner.next();
             System.out.println("Podaj nazwisko studenta");
             String surname = scanner.next();
-            students[i].setName("name");
-            students[i].setSurname("surname");
-            students[i].setMarks(new int[]{5, 4, 4, 3, 2});
-            //Student student = new Student(name, surname, new int[]{5, 3, 5, 3, 6});
+//            students[i].setName(name);
+//            students[i].setSurname(surname);
+//            students[i].setMarks(new int[]{5, 4, 4, 3, 2});
+
+            int[] marks = new int[5];
+            System.out.println("Wprowadź 5 ocen");
+            for (int j = 0; j < marks.length; j++) {
+                int markNumber = j + 1;
+                System.out.println("Wprowadź ocenę nr " + markNumber);
+                marks[j] = scanner.nextInt();
+            }
+            students[i] = new Student(name, surname, marks);
 
             i = i + 1;
             counter = counter + 1;
         }
-        while (i < studentNumber);
+        while (i < numberOfStudents);
 
 
-        // Student[] students = new Student[5];
-        //Student student = new Student(name, "Kasztaniak", new int[]{5, 3, 5, 3, 6});
-
-//        students[0]= new Student(name, "surname", new int[]{1,2,3,4,5});
-
-        //students[0].calculateAverage();
         System.out.println("Podaj dane studenta nr ");
-        int j = scanner.nextInt();
-        students[j].showStudentData();
-        System.out.println("asdasdas");
-
+        int k = scanner.nextInt();
+        students[k - 1].showStudentData();
     }
-}
+    private void studentAdder(){
+        System.out.println("correct");
+        }
+    }
