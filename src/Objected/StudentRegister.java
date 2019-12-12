@@ -14,10 +14,9 @@ public class StudentRegister {
         int i = 0;
         int counter = i + 1;
 
-
-
         do {
-            System.out.println("Wprowadzasz dane studenta nr " + counter);
+            studentAdder(students[i]);
+           /* System.out.println("Wprowadzasz dane studenta nr " + counter);
 
             System.out.println("Podaj imię studenta");
             String name = scanner.next();
@@ -37,16 +36,33 @@ public class StudentRegister {
             students[i] = new Student(name, surname, marks);
 
             i = i + 1;
-            counter = counter + 1;
+            counter = counter + 1;*/
         }
         while (i < numberOfStudents);
-
 
         System.out.println("Podaj dane studenta nr ");
         int k = scanner.nextInt();
         students[k - 1].showStudentData();
+
     }
-    private void studentAdder(){
-        System.out.println("correct");
+
+    private static void studentAdder(Student student) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Podaj imię studenta");
+        String newName = input.next();
+        student.setName(newName);
+
+        System.out.println("Podaj nazwisko studenta");
+        String newSurname = input.next();
+        student.setSurname(newSurname);
+
+        System.out.println("Wprowadź 5 ocen studenta");
+        int[] newMarks = new int[5];
+        for (int j = 0; j < newMarks.length; j++) {
+            int markNumber = j + 1;
+            System.out.println("Wprowadź ocenę nr " + markNumber);
+            newMarks[j] = input.nextInt();
         }
+        System.out.println("Wprowadzono wszystkie dane");
     }
+}
