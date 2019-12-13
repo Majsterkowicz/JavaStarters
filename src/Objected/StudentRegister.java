@@ -15,7 +15,11 @@ public class StudentRegister {
         int counter = i + 1;
 
         do {
-            studentAdder(students[i]);
+            studentAdder(students[i]); //TODO review - students[i] zawsze jest nullem - metoda ta powinna nie byc void
+            // TODO review: a powinna zwracac instancje klasy Student ktora przypisujesz do elementu tablicy (students[i])
+            //TODO review: czyli students[i] = studentAdder();
+
+
            /* System.out.println("Wprowadzasz dane studenta nr " + counter);
 
             System.out.println("Podaj imię studenta");
@@ -47,10 +51,11 @@ public class StudentRegister {
     }
 
     private static void studentAdder(Student student) {
+        //TODO review: zamiast void - Student a w parametrze metody nic nie przekazuejsz
         Scanner input = new Scanner(System.in);
         System.out.println("Podaj imię studenta");
         String newName = input.next();
-        student.setName(newName);
+        student.setName(newName); //TODO review: tutaj leci nullPointer bo przekazany w parametrze student zawsze jest nullem
 
         System.out.println("Podaj nazwisko studenta");
         String newSurname = input.next();
@@ -64,5 +69,7 @@ public class StudentRegister {
             newMarks[j] = input.nextInt();
         }
         System.out.println("Wprowadzono wszystkie dane");
+
+//      //TODO review return new Student(newName, newSurname, newMarks);
     }
 }

@@ -1,6 +1,6 @@
 package Excercises;
 
-import com.sun.jdi.PathSearchingVirtualMachine;
+//import com.sun.jdi.PathSearchingVirtualMachine; //TODO review wtf?! do usunięcia !!!
 
 public class Petle1 {
 
