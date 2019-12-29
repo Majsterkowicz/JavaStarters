@@ -46,7 +46,7 @@ public class Student {
     }
 
     public void showStudentData() {
-        System.out.println(name + " " + surname + " " + Arrays.toString(marks) + calculateAverage());
+        System.out.println(name + " " + surname + " " + Arrays.toString(marks) + " średnia: " + calculateAverage());
     }
 
 }

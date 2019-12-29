@@ -1,5 +1,6 @@
 package Objected;
 
+import javax.sound.midi.Soundbank;
 import java.util.Scanner;
 
 public class StudentRegister {
@@ -15,48 +16,40 @@ public class StudentRegister {
         int counter = i + 1;
 
         do {
-            studentAdder(students[i]);
-           /* System.out.println("Wprowadzasz dane studenta nr " + counter);
-
-            System.out.println("Podaj imię studenta");
-            String name = scanner.next();
-            System.out.println("Podaj nazwisko studenta");
-            String surname = scanner.next();
-//            students[i].setName(name);
-//            students[i].setSurname(surname);
-//            students[i].setMarks(new int[]{5, 4, 4, 3, 2});
-
-            int[] marks = new int[5];
-            System.out.println("Wprowadź 5 ocen");
-            for (int j = 0; j < marks.length; j++) {
-                int markNumber = j + 1;
-                System.out.println("Wprowadź ocenę nr " + markNumber);
-                marks[j] = scanner.nextInt();
-            }
-            students[i] = new Student(name, surname, marks);
-
-            i = i + 1;
-            counter = counter + 1;*/
+            System.out.println("Wprowadzasz dane studenta nr " + " " + counter);
+            students[i] = studentAdder(counter);
+            System.out.println("Wprowadzono studenta nr " + counter + ":");
+            students[i].showStudentData();
+            i++;
+            counter++;
         }
         while (i < numberOfStudents);
 
-        System.out.println("Podaj dane studenta nr ");
-        int k = scanner.nextInt();
-        students[k - 1].showStudentData();
+        System.out.println("Wprowadzono wszystkich studentów");
 
+        //LISTA STUDENTÓW
+        i = 0;
+        counter = i + 1;
+        System.out.println("Lista studentów:");
+        do {
+            System.out.println("Student nr " + counter + ":");
+            students[i].showStudentData();
+            i++;
+            counter++;
+        }
+        while (i < numberOfStudents);
+        //viewAllStudents(numberOfStudents);
     }
 
-    private static void studentAdder(Student student) {
+    private static Student studentAdder(int counter) {
         Scanner input = new Scanner(System.in);
         System.out.println("Podaj imię studenta");
         String newName = input.next();
-        student.setName(newName);
 
         System.out.println("Podaj nazwisko studenta");
         String newSurname = input.next();
-        student.setSurname(newSurname);
 
-        System.out.println("Wprowadź 5 ocen studenta");
+        System.out.println("Wprowadź 5 ocen studenta " + counter);
         int[] newMarks = new int[5];
         for (int j = 0; j < newMarks.length; j++) {
             int markNumber = j + 1;
@@ -64,5 +57,19 @@ public class StudentRegister {
             newMarks[j] = input.nextInt();
         }
         System.out.println("Wprowadzono wszystkie dane");
+        return new Student(newName, newSurname, newMarks);
     }
+
+    /*private static void viewAllStudents(int numberOfStudents) {
+        System.out.println("Lista studentów: ");
+        int k = 0;
+        int counter = k + 1;
+        do {
+            System.out.println("Student " + counter + ":");
+
+            k++;
+            counter++;
+        }
+        while (k < numberOfStudents);
+    }*/
 }
