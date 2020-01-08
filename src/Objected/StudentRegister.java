@@ -2,74 +2,63 @@ package Objected;
 
 import java.util.Scanner;
 
-public class StudentRegister { //TODO review na razie wprowadz ponizsze uwagi i przeslij ponownie, wtedy zrobie dokladne review
+public class StudentRegister {
+
+    public static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        //TODO review bardziej poszatkuj na metody prywatne, po kolei idac initStudentsArray, writeStudentsData, showStudentsData
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Ilu studentów chcesz utworzyć?"); //TODO review mozesz poczytac o loggerze i zastosowac go zamiast sout
-        int numberOfStudents = scanner.nextInt();
-
-        Student[] students = new Student[numberOfStudents];
-        int i = 0; //TODO review postaraj sie zrobic refactor aby uzyc jednego licznika, mysle ze mozna to ładnie uproscic (tip: spróbuj petle for)
-        int counter = i + 1;
-
-        do { //TODO review sprobuj wszystkie do-while przerobic na pętle for
-            System.out.println("Wprowadzasz dane studenta nr " + " " + counter);
-            students[i] = studentAdder(counter);
-            System.out.println("Wprowadzono studenta nr " + counter + ":");
-            students[i].showStudentData(); //TODO review chyba zbedne, dane studentow prezentujesz na koncu dzialania programu
-            i++;
-            counter++;
-        }
-        while (i < numberOfStudents);
-
-        System.out.println("Wprowadzono wszystkich studentów");
-
-        //LISTA STUDENTÓW //TODO review komentarz zbedny - kod powinien tlumaczcy co sie tutaj dzieje
-        i = 0;
-        counter = i + 1;
-        System.out.println("Lista studentów:");
-        do { //TODO review ten kod rozumiem bedzie relizowany w  viewAllStudents ? sprobuj petle foreach na tablicy studentow
-            System.out.println("Student nr " + counter + ":");
-            students[i].showStudentData();
-            i++;
-            counter++;
-        }
-        while (i < numberOfStudents);
-//        viewAllStudents(numberOfStudents); //TODO review aby wystwietlic studentow musisz przekazac ich dane (czyli tablice) w parametrze metody zamiast ich liczby
+        int numberOfStudents = createNumberOfStudents();
+        Student[] students = createStudent(numberOfStudents);
+        viewAllStudents(students);
     }
 
-    private static Student studentAdder(int counter) { //TODO review 1. addStudent - nazwy metod zaczyanja sie od czasownika
-        // TODO review 2. przekazanie countera w argumencie jest mylace i chyba zbędne (uzywasz go tylko w g:52 w komunikacie logowania)
-        Scanner input = new Scanner(System.in); //TODO review Znowu tworzysz obiekt klasy Scanner - albo utworzyc raz statyczny albo przekaz instancje utworzona w g:9 w parametrze metody
+    private static int createNumberOfStudents() {
+        System.out.println("Ilu studentów chcesz utworzyć?");
+        return scanner.nextInt();
+    }
+
+    private static Student[] createStudent(int numberOfStudents) {
+        Student[] students = new Student[numberOfStudents];
+        for (int i = 0; i < numberOfStudents; i++) {
+            int studentNumber = i + 1;
+            System.out.println("Wprowadzasz dane studenta nr " + studentNumber);
+            students[i] = addStudentData(studentNumber);
+        }
+        System.out.println("Wprowadzono wszystkich studentów");
+        return students;
+    }
+
+    private static Student addStudentData(int studentNumber) {
         System.out.println("Podaj imię studenta");
-        String newName = input.next();
+        String newName = scanner.next();
 
         System.out.println("Podaj nazwisko studenta");
-        String newSurname = input.next();
+        String newSurname = scanner.next();
 
-        System.out.println("Wprowadź 5 ocen studenta " + counter); // TODO wprowadzanie ocen mozna wydzielic do metody prywatnej
+        int[] newMarks = createStudentMarks(studentNumber);
+
+        System.out.println("Wprowadzono wszystkie dane studenta nr " + studentNumber);
+        return new Student(newName, newSurname, newMarks);
+    }
+
+    private static int[] createStudentMarks(int studentNumber) {
+        System.out.println("Wprowadź 5 ocen studenta " + studentNumber);
         int[] newMarks = new int[5];
         for (int j = 0; j < newMarks.length; j++) {
             int markNumber = j + 1;
             System.out.println("Wprowadź ocenę nr " + markNumber);
-            newMarks[j] = input.nextInt();
+            newMarks[j] = scanner.nextInt();
         }
-        System.out.println("Wprowadzono wszystkie dane");
-        return new Student(newName, newSurname, newMarks);
+        return newMarks;
     }
 
-    /*private static void viewAllStudents(int numberOfStudents) {
+    private static void viewAllStudents(Student[] students) {
         System.out.println("Lista studentów: ");
-        int k = 0;
-        int counter = k + 1;
-        do {
-            System.out.println("Student " + counter + ":");
-
-            k++;
-            counter++;
+        for (int i = 0; i < students.length; i++) {
+            int studentNumber = i + 1;
+            System.out.println("Student " + studentNumber + ":");
+            students[i].showStudentData();
         }
-        while (k < numberOfStudents);
-    }*/
+    }
+
 }
