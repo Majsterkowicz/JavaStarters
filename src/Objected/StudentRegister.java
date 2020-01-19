@@ -9,7 +9,7 @@ public class StudentRegister {
     public static void main(String[] args) {
         int numberOfStudents = readNumberOfStudents();
         int numberOfMarks = readNumberOfMarks();
-        Student[] students = createStudent(numberOfStudents, numberOfMarks);
+        Student[] students = createArrayOfStudents(numberOfStudents, numberOfMarks);
         viewStudentsData(students);
     }
 
@@ -23,7 +23,7 @@ public class StudentRegister {
         return scanner.nextInt();
     }
 
-    private static Student[] createStudent(int numberOfStudents, int numberOfMarks) {
+    private static Student[] createArrayOfStudents(int numberOfStudents, int numberOfMarks) {
         Student[] students = new Student[numberOfStudents];
         for (int i = 0; i < numberOfStudents; i++) {
             int studentNumber = i + 1;
@@ -37,8 +37,7 @@ public class StudentRegister {
     private static Student readStudentData(int studentNumber, int numberOfMarks) {
         String studentName = readStudentName();
         String studentSurneme = readStudentSurname();
-        int[] newMarks = createStudentMarks(studentNumber, numberOfMarks);
-
+        int[] newMarks = readStudentsMarks(studentNumber, numberOfMarks);
         System.out.println("Wprowadzono wszystkie dane studenta nr " + studentNumber);
         return new Student(studentName, studentSurneme, newMarks);
     }
@@ -53,7 +52,7 @@ public class StudentRegister {
         return scanner.next();
     }
 
-    private static int[] createStudentMarks(int studentNumber, int numberOfMarks) {
+    private static int[] readStudentsMarks(int studentNumber, int numberOfMarks) {
         System.out.println("Wprowadź " + numberOfMarks + " ocen studenta " + studentNumber);
         int[] marks = new int[numberOfMarks];
         for (int i = 0; i < marks.length; i++) {
