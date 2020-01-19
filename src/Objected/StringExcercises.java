@@ -7,56 +7,68 @@ public class StringExcercises {
     public static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        String word = readWord();
-        int wordLength = viewWordLength(word);
-        String wordUpper = wordToUpper(word);
-        int choosenNumber = chooseANumber();
-        checkChoosenNumber(choosenNumber, word);
+        String line = readLine();
+        int lineLength = findLength(line);
+        String lineUpper = convertToUpper(line);
+        int charPosition = findCorrectCharPosition(line);
+        char charAtPosition = findCorrectChar(charPosition, line);
+        String splitedLine = splitLineByPrzecinek(line);
 
-        System.out.println(word + " to " + wordUpper);
-        System.out.println("Długość wyrażenia to " + wordLength + " znaków, wliczając spacje.");
+        System.out.println(line + " to " + lineUpper);
+        System.out.println(String.format("Długość wyrażenia to %s znaków, wliczając spacje.", lineLength));
+        System.out.println(String.format("Znak na pozycji %s to: '%s'.", charPosition, charAtPosition));
+        System.out.println(splitedLine);
     }
 
-    private static String readWord() {
+    private static String readLine() {
         System.out.println("Podaj wyraz lub wyrażenie");
         return scanner.nextLine();
     }
 
-    private static String wordToUpper(String word) {
+    private static String convertToUpper(String word) {
         return word.toUpperCase();
     }
 
-    private static int viewWordLength(String word) {
+    private static int findLength(String word) {
         return word.length();
     }
 
-    private static int chooseANumber() {
+    private static int chooseCharPositionInLine() {
         System.out.println("Podaj pozycję znaku wyrażenia");
         return scanner.nextInt();
     }
 
-    private static char findSign(int choosenNumber, String word) {
-        return word.charAt(choosenNumber - 1);
-    }
-
-    private static void checkChoosenNumber(int choosenNumber, String word) {
-        if (choosenNumber <= word.length()) {
-            if (choosenNumber <= 0) {
-                System.out.println("Wybrano błędną liczbę. Spróbuj ponownie");
-                choosenNumber = chooseANumber();
-                checkChoosenNumber(choosenNumber, word);
+    private static int findCorrectCharPosition(String line) {
+        int lineLength = line.length();
+        boolean isInvalid;
+        int charPosition;
+        do {
+            charPosition = chooseCharPositionInLine();
+            if (charPosition <= 0 || charPosition > lineLength) {
+                System.out.println("Wybrana pozycja jest poza zakresem. Wybierz ponownie.");
+                isInvalid = true;
             } else {
-                showOneChar(choosenNumber, word);
+                isInvalid = false;
             }
-        } else {
-            System.out.println("Wybrano za dużą liczbę. Wyrażenie jest krótsze. Wybierz liczbę ponownie.");
-            choosenNumber = chooseANumber();
-            checkChoosenNumber(choosenNumber, word);
         }
+        while (isInvalid);
+        return charPosition;
     }
 
-    private static void showOneChar(int choosenNumber, String word) {
-        char oneChar = findSign(choosenNumber, word);
-        System.out.println("Znak na pozycji " + choosenNumber + " to: " + "'" + oneChar + "'.");
+    private static char findCorrectChar(int charPosition, String line) {
+        return line.charAt(charPosition - 1);
+    }
+
+    private static String splitLineByPrzecinek(String line) {
+        String[] splittedLine = line.split(" ");
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < splittedLine.length; i++) {
+            builder.append(splittedLine[i]);
+            if (i == splittedLine.length - 1) {
+                break;
+            }
+            builder.append(", ");
+        }
+        return builder.toString();
     }
 }
