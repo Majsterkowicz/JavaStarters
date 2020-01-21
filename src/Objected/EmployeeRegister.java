@@ -1,9 +1,30 @@
 package Objected;
 
+import java.util.Scanner;
+
 public class EmployeeRegister {
 
-    public static void main (String[] args){
+    public static Scanner scanner = new Scanner(System.in);
 
+    public static void main(String[] args) {
+        int numberOfEployees = setNumberOfEmployees();
+        Employee[] staff = new Employee[numberOfEployees];
+        setEmployeeData(staff);
+    }
+
+    private static int setNumberOfEmployees() {
+        System.out.println("Podaj ilość pracowników");
+        return scanner.nextInt();
+    }
+
+    private static void setEmployeeData(Employee[] employees) {
+        employees[id].setName();
+    }
+
+    private static void getEmployeeData(Employee[] employees, int id) {
+        employees[id].getName();
+        employees[id].getSurname();
+        employees[id].getSalary();
     }
 
 }
