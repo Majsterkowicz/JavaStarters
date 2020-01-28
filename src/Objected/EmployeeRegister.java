@@ -14,7 +14,7 @@ public class EmployeeRegister {
     }
 
     private static int setNumberOfEmployees() {
-        System.out.println("Podaj ilość pracowników");
+        System.out.println("Podaj ilość pracowników"); //TODO review ponownie proponuje ogarnac sobie loggera - przyda sie na przyszlosc
         return scanner.nextInt();
     }
 
@@ -30,7 +30,7 @@ public class EmployeeRegister {
             double salary = scanner.nextDouble();
 
             Employee employee = new Employee(name, surname, salary);
-            employee.setId();
+            employee.setId(); //TODO review gdybyś zastosował wersję z konstruktorem z tych 3 linii zrobiłbyś jedną (ale to rozwiazanie tez jest poprawne) - szybka zmiana, mozesz spróbować to zrobić aby przećwiczyć
             staff[i] = employee;
         }
         System.out.println("Wprowadzono wszystkich pracowników.");
@@ -38,8 +38,8 @@ public class EmployeeRegister {
     }
 
     private static void showEmployeesData(Employee[] staff) {
-        for (int i = 0; i < staff.length; i++) {
-            String name = staff[i].getName();
+        for (int i = 0; i < staff.length; i++) { //TODO mozna zamienić na foreach - nawet intellij to podpowiada (zobacz ze for masz podswietlony alt + enter i masz gotowe rozwiazanie)
+            String name = staff[i].getName(); //TODO mozna sie pokusić o implementacje metody toString w klasie Employee - wowczas linie od 42 do 46 mozna zamienic wykorzystaniem tej metody
             String surname = staff[i].getSurname();
             double salary = staff[i].getSalary();
             int id = staff[i].getId();

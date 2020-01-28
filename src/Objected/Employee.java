@@ -15,7 +15,7 @@ class Employee {
 
     public void setName(String name) {
         this.name = name;
-    }
+    }  //TODO review nieuzywane settery (intellij podpowiada) - do usuniecia
 
     public void setSurname(String surname) {
         this.surname = surname;
