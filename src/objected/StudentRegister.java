@@ -1,4 +1,4 @@
-package Objected;
+package objected;
 
 import java.util.Scanner;
 

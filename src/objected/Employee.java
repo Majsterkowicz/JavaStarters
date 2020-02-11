@@ -1,4 +1,4 @@
-package Objected;
+package objected;
 
 class Employee {
     private String name;
@@ -11,18 +11,7 @@ class Employee {
         this.name = name;
         this.surname = surname;
         this.salary = salary;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }  //TODO review nieuzywane settery (intellij podpowiada) - do usuniecia
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public void setSalary(double salary) {
-        this.salary = salary;
+        setId();
     }
 
     public void setId() {
@@ -48,5 +37,14 @@ class Employee {
 
     public int getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("ID: %s. pracownik: %s %s, zarabia %s", id, name, surname, salary);
+    }
+
+    public String showClass(){
+        return "Jesteś w klasie Employee";
     }
 }

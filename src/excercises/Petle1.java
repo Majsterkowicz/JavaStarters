@@ -1,4 +1,4 @@
-package Excercises;
+package excercises;
 
 //import com.sun.jdi.PathSearchingVirtualMachine; //TODO review wtf?! do usunięcia !!!
 

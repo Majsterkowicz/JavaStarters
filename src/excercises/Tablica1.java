@@ -1,4 +1,4 @@
-package Excercises;
+package excercises;
 
 public class Tablica1 {
 

@@ -1,6 +1,5 @@
-package Excercises;
+package excercises;
 
-import javax.sound.midi.Soundbank;
 import java.util.Scanner;
 
 public class Random {

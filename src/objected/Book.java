@@ -1,4 +1,4 @@
-package Objected;
+package objected;
 
 public class Book {
     private String title;
