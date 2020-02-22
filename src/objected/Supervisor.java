@@ -21,4 +21,5 @@ public class Supervisor extends Employee {
                 "bonus=" + super.getName() + bonus +
                 '}';
     }
+
 }
