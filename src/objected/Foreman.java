@@ -7,35 +7,9 @@ public class Foreman extends Employee {
 
     private List<String> tools;
 
-    public Foreman(String name, String surname, double salary, List<String> tools) {
-        super(name, surname, salary);
+    public Foreman(int employeeTypeId, String name, String surname, double salary, List<String> tools) {
+        super(employeeTypeId, name, surname, salary);
         this.tools = tools;
-    }
-
-    public static Foreman createForeman() {
-        System.out.println("Podaj imię");
-        String name = scanner.next();
-        System.out.println("Podaj nazwisko");
-        String surname = scanner.next();
-        System.out.println("Podaj pensję");
-        double salary = scanner.nextDouble();
-        List<String> tools = createTools();
-        Foreman foreman = new Foreman(name, surname, salary, tools);
-        return foreman;
-    }
-
-    public static List<String> createTools() {
-        List<String> tools = new ArrayList<>();
-        String choice;
-        do {
-            System.out.println("Podaj narzędzie");
-            String tool = scanner.next();
-            tools.add(tool);
-            System.out.println("Dodać kolejne narzędzie?");
-            choice = scanner.next();
-        }
-        while (choice == "t");
-        return tools;
     }
 
     @Override
@@ -46,6 +20,17 @@ public class Foreman extends Employee {
     @Override
     public String getName() {
         return super.getName();
+    }
+
+    @Override
+    public int getEmployeeTypeId() {
+        return super.getEmployeeTypeId();
+    }
+
+    @Override
+    public String toString() {
+        return String.format("ID: %s. pracownik: %s %s, zarabia %s, narzędzia: %s",
+                super.getId(), super.getName(), super.getSurname(), super.getSalary(), tools);
     }
 
     public String showTools() {

@@ -1,18 +1,16 @@
 package objected;
 
-import javax.security.auth.login.CredentialException;
-import java.util.Scanner;
-
 class Employee {
 
-    public static Scanner scanner = new Scanner(System.in);
+    private int employeeTypeId;
     private String name;
     private String surname;
     private double salary;
     private int id;
     private static int nextId = 1;
 
-    public Employee(String name, String surname, double salary) {
+    public Employee(int employeeTypeId, String name, String surname, double salary) {
+        this.employeeTypeId = employeeTypeId;
         this.name = name;
         this.surname = surname;
         this.salary = salary;
@@ -44,15 +42,8 @@ class Employee {
         return id;
     }
 
-    public static Employee createEmployee() {
-        System.out.println("Podaj imię");
-        String name = scanner.next();
-        System.out.println("Podaj nazwisko");
-        String surname = scanner.next();
-        System.out.println("Podaj pensję");
-        double salary = scanner.nextDouble();
-        Employee employee = new Employee(name, surname, salary);
-        return employee;
+    public int getEmployeeTypeId() {
+        return employeeTypeId;
     }
 
     @Override
