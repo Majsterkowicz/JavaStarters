@@ -5,6 +5,9 @@ import java.util.logging.Logger;
 
 public class EmployeeRegister {
 
+    private static final Logger LOGGER = Logger.getLogger( EmployeeRegister.class.getName() );
+
+
     public static Scanner scanner = new Scanner(System.in);
 
     private static final Logger logger = Logger.getLogger(EmployeeRegister.class.getName());
@@ -35,7 +38,7 @@ public class EmployeeRegister {
             System.out.println("Podaj pensję: ");
             double salary = scanner.nextDouble();
 
-            Employee employee = new Employee(name, surname, salary);
+            Employee employee = new Employee(1,  name, surname, salary); ///brak id dodałęm roboczo - do poprawki
             staff[i] = employee;
         }
         System.out.println("Wprowadzono wszystkich pracowników.");

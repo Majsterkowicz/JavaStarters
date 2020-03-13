@@ -37,9 +37,10 @@ public class EmployeeManager {
 
     private static List<Employee> prepareEmployeeList() {
         List<Employee> employees = new ArrayList<>();
+        List<String> employeeTypes = List.of("type1", "type2", "type3"); // na któryms etapie musisz stworzyc listę typów praconików i ja przekazać dalej, musisz zdecydować na którym, ja przykładowo dodałem na tym
         String choose;
         do {
-            int empType = chooseEmployeeType();
+            int empType = chooseEmployeeType(employeeTypes);
             Employee employee = createEmployee(empType);
             employees.add(employee);
             System.out.println("Czy dodać następnego pracownika? (t/n)");
@@ -49,9 +50,9 @@ public class EmployeeManager {
         return employees;
     }
 
-    private static int chooseEmployeeType() {
+    private static int chooseEmployeeType(List<String> employeeTypes) {
         System.out.println("Podaj numer pracownika, który chcesz utworzyć:");
-        showEmployeesTypes();
+        showEmployeesTypes(employeeTypes);
         return scanner.nextInt();
     }
 
@@ -59,7 +60,7 @@ public class EmployeeManager {
         switch (empType) {
             case 1: {
                 System.out.println("Dodajesz pracownika");
-                EmployeeBasicData employeeBasicData = prepareEmployeeBasicData();
+                EmployeeBasicData employeeBasicData = prepareEmployeeBasicData(1); //todo do poprawki
                 return new Employee(
                         employeeBasicData.getEmployeeTypeId(),
                         employeeBasicData.getName(),
@@ -68,7 +69,7 @@ public class EmployeeManager {
             }
             case 2: {
                 System.out.println("Dodajesz brygadzistę");
-                EmployeeBasicData employeeBasicData = prepareEmployeeBasicData();
+                EmployeeBasicData employeeBasicData = prepareEmployeeBasicData(1); //todo do poprawki
                 List<String> tools = createTools();
                 return new Foreman(
                         employeeBasicData.getEmployeeTypeId(),
@@ -79,7 +80,7 @@ public class EmployeeManager {
             }
             case 3: {
                 System.out.println("Dodajesz kierownika");
-                EmployeeBasicData employeeBasicData = prepareEmployeeBasicData();
+                EmployeeBasicData employeeBasicData = prepareEmployeeBasicData(1); //todo do poprawki
                 double bonus = createBonus();
                 return new Supervisor(
                         employeeBasicData.getEmployeeTypeId(),
@@ -90,7 +91,7 @@ public class EmployeeManager {
             }
             case 4: {
                 System.out.println("Dodajesz dyrektora");
-                EmployeeBasicData employeeBasicData = prepareEmployeeBasicData();
+                EmployeeBasicData employeeBasicData = prepareEmployeeBasicData(1); //todo do poprawki
                 double bonus = createBonus();
                 String carId = createCarId();
                 return new Director(
