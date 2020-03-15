@@ -13,11 +13,6 @@ public class Foreman extends Employee {
     }
 
     @Override
-    public String showClass() {
-        return "Jesteś w klasie Foreman";
-    }
-
-    @Override
     public String getName() {
         return super.getName();
     }
@@ -31,9 +26,5 @@ public class Foreman extends Employee {
     public String toString() {
         return String.format("ID: %s. pracownik: %s %s, zarabia %s, narzędzia: %s",
                 super.getId(), super.getName(), super.getSurname(), super.getSalary(), tools);
-    }
-
-    public String showTools() {
-        return String.format("Foreman %s posiada: %s", getName(), tools.toString());
     }
 }

@@ -9,8 +9,12 @@ public class EmployeeManager {
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        List<Employee> employees = prepareEmployeeList();
+        //List<String> employeeTypes = List.of("Pracownik", "Brygadzista", "Kierownik", "Dyrektor");
+        List<Employee> employees = prepareEmployeeList(employeeTypes());
         showEmployees(employees);
+    }
+    public static List<String> employeeTypes(){
+        return List.of("Pracownik", "Brygadzista", "Kierownik", "Dyrektor");
     }
 
     private static void showEmployees(List<Employee> employees) {
@@ -19,28 +23,21 @@ public class EmployeeManager {
         }
     }
 
-    List<String> employeesType = new ArrayList<>();
-
-    {
-        employeesType.add("Pracownik");
-        employeesType.add("Brygadzista");
-        employeesType.add("Kierownik");
-        employeesType.add("Dyrektor");
-        employeesType.add("Szef");
-    }
-
     public static void showEmployeesTypes(List<String> employeesType) {
         for (int i = 0; i < employeesType.size(); i++) {
-            System.out.println(i + ". " + employeesType.get(i));
+            System.out.println(i + 1 + ". " + employeesType.get(i));
         }
     }
 
-    private static List<Employee> prepareEmployeeList() {
+    private static List<Employee> prepareEmployeeList(List<String> employeeTypes) {
         List<Employee> employees = new ArrayList<>();
-        List<String> employeeTypes = List.of("type1", "type2", "type3"); // na któryms etapie musisz stworzyc listę typów praconików i ja przekazać dalej, musisz zdecydować na którym, ja przykładowo dodałem na tym
         String choose;
         do {
             int empType = chooseEmployeeType(employeeTypes);
+            if (empType < 1 || empType > employeeTypes.size()) {
+                System.out.println("Wybrano błędny typ. Wybierz ponownie");
+                prepareEmployeeList(employeeTypes);
+            }
             Employee employee = createEmployee(empType);
             employees.add(employee);
             System.out.println("Czy dodać następnego pracownika? (t/n)");
@@ -60,7 +57,7 @@ public class EmployeeManager {
         switch (empType) {
             case 1: {
                 System.out.println("Dodajesz pracownika");
-                EmployeeBasicData employeeBasicData = prepareEmployeeBasicData(1); //todo do poprawki
+                EmployeeBasicData employeeBasicData = prepareEmployeeBasicData(1);
                 return new Employee(
                         employeeBasicData.getEmployeeTypeId(),
                         employeeBasicData.getName(),
@@ -69,7 +66,7 @@ public class EmployeeManager {
             }
             case 2: {
                 System.out.println("Dodajesz brygadzistę");
-                EmployeeBasicData employeeBasicData = prepareEmployeeBasicData(1); //todo do poprawki
+                EmployeeBasicData employeeBasicData = prepareEmployeeBasicData(2);
                 List<String> tools = createTools();
                 return new Foreman(
                         employeeBasicData.getEmployeeTypeId(),
@@ -80,7 +77,7 @@ public class EmployeeManager {
             }
             case 3: {
                 System.out.println("Dodajesz kierownika");
-                EmployeeBasicData employeeBasicData = prepareEmployeeBasicData(1); //todo do poprawki
+                EmployeeBasicData employeeBasicData = prepareEmployeeBasicData(3);
                 double bonus = createBonus();
                 return new Supervisor(
                         employeeBasicData.getEmployeeTypeId(),
@@ -91,7 +88,7 @@ public class EmployeeManager {
             }
             case 4: {
                 System.out.println("Dodajesz dyrektora");
-                EmployeeBasicData employeeBasicData = prepareEmployeeBasicData(1); //todo do poprawki
+                EmployeeBasicData employeeBasicData = prepareEmployeeBasicData(4);
                 double bonus = createBonus();
                 String carId = createCarId();
                 return new Director(

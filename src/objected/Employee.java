@@ -1,5 +1,7 @@
 package objected;
 
+import java.util.List;
+
 class Employee {
 
     private int employeeTypeId;
@@ -46,16 +48,12 @@ class Employee {
         return employeeTypeId;
     }
 
+    public String getEmployeeType(int employeeTypeId, List<String> employeeTypes) {
+        return employeeTypes.get(employeeTypeId);
+    }
+
     @Override
     public String toString() {
-        return String.format("ID: %s. pracownik: %s %s, zarabia %s", id, name, surname, salary);
-    }
-
-    public String showClass() {
-        return "Jesteś w klasie Employee";
-    }
-
-    public static void main(String[] args) {
-
+        return String.format("ID %s: %s %s %s, zarabia %s", id, getEmployeeType(employeeTypeId, EmployeeManager.employeeTypes()), name, surname, salary);
     }
 }

@@ -14,11 +14,6 @@ public class Supervisor extends Employee {
     }
 
     @Override
-    public String showClass() {
-        return "Jesteś w klasie Supervisor";
-    }
-
-    @Override
     public String toString() {
         return super.toString() + " + " + bonus + " premii";
     }
