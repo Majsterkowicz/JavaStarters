@@ -4,8 +4,8 @@ public class Supervisor extends Employee {
 
     private double bonus;
 
-    public Supervisor(int employeeTypeId, String name, String surname, double salary, double bonus) {
-        super(employeeTypeId, name, surname, salary);
+    public Supervisor(String employeeType, String name, String surname, double salary, double bonus) {
+        super(employeeType, name, surname, salary);
         this.bonus = bonus;
     }
 

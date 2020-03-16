@@ -4,15 +4,15 @@ import java.util.List;
 
 class Employee {
 
-    private int employeeTypeId;
+    private String employeeType;
     private String name;
     private String surname;
     private double salary;
     private int id;
     private static int nextId = 1;
 
-    public Employee(int employeeTypeId, String name, String surname, double salary) {
-        this.employeeTypeId = employeeTypeId;
+    public Employee(String employeeTypeId, String name, String surname, double salary) {
+        this.employeeType = employeeTypeId;
         this.name = name;
         this.surname = surname;
         this.salary = salary;
@@ -44,8 +44,8 @@ class Employee {
         return id;
     }
 
-    public int getEmployeeTypeId() {
-        return employeeTypeId;
+    public String getEmployeeType() {
+        return employeeType;
     }
 
     public String getEmployeeType(int employeeTypeId, List<String> employeeTypes) {
@@ -54,6 +54,6 @@ class Employee {
 
     @Override
     public String toString() {
-        return String.format("ID %s: %s %s %s, zarabia %s", id, getEmployeeType(employeeTypeId, EmployeeManager.employeeTypes()), name, surname, salary);
+        return String.format("ID %s: %s %s %s, zarabia %s", id, employeeType, name, surname, salary);
     }
 }

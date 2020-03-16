@@ -4,8 +4,8 @@ public class Director extends Supervisor {
 
     private String carID;
 
-    public Director(int employeeTypeId, String name, String surname, double salary, double bonus, String carID) {
-        super(employeeTypeId, name, surname, salary, bonus);
+    public Director(String employeeType, String name, String surname, double salary, double bonus, String carID) {
+        super(employeeType, name, surname, salary, bonus);
         this.carID = carID;
     }
 

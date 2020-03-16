@@ -2,20 +2,14 @@ package objected;
 
 public class EmployeeBasicData {
 
-    private int employeeTypeId;
     private String name;
     private String surname;
     private double salary;
 
-    public EmployeeBasicData(int employeeTypeId, String name, String surname, double salary) {
-        this.employeeTypeId = employeeTypeId;
+    public EmployeeBasicData(String name, String surname, double salary) {
         this.name = name;
         this.surname = surname;
         this.salary = salary;
-    }
-
-    public int getEmployeeTypeId() {
-        return employeeTypeId;
     }
 
     public String getName() {

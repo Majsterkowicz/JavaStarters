@@ -32,13 +32,12 @@ public class EmployeeRegister {
             System.out.println(String.format("Podaj dane pracownika %s", i + 1));
             System.out.println("Podaj imię: ");
             String name = scanner.next();
-
             System.out.println("Podaj nazwisko: ");
             String surname = scanner.next();
             System.out.println("Podaj pensję: ");
             double salary = scanner.nextDouble();
 
-            Employee employee = new Employee(1,  name, surname, salary); ///brak id dodałęm roboczo - do poprawki
+            Employee employee = new Employee("pracownik",  name, surname, salary); ///brak id dodałęm roboczo - do poprawki
             staff[i] = employee;
         }
         System.out.println("Wprowadzono wszystkich pracowników.");

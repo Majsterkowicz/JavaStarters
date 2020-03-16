@@ -1,14 +1,13 @@
 package objected;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Foreman extends Employee {
 
     private List<String> tools;
 
-    public Foreman(int employeeTypeId, String name, String surname, double salary, List<String> tools) {
-        super(employeeTypeId, name, surname, salary);
+    public Foreman(String employeeType, String name, String surname, double salary, List<String> tools) {
+        super(employeeType, name, surname, salary);
         this.tools = tools;
     }
 
@@ -18,13 +17,13 @@ public class Foreman extends Employee {
     }
 
     @Override
-    public int getEmployeeTypeId() {
-        return super.getEmployeeTypeId();
+    public String getEmployeeType() {
+        return super.getEmployeeType();
     }
 
     @Override
     public String toString() {
-        return String.format("ID: %s. pracownik: %s %s, zarabia %s, narzędzia: %s",
-                super.getId(), super.getName(), super.getSurname(), super.getSalary(), tools);
+        return String.format("ID: %s. %s %s %s, zarabia %s, narzędzia: %s",
+                super.getId(), getEmployeeType(), super.getName(), super.getSurname(), super.getSalary(), tools);
     }
 }

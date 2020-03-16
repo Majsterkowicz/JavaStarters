@@ -7,92 +7,78 @@ import java.util.Scanner;
 public class EmployeeManager {
 
     private static Scanner scanner = new Scanner(System.in);
+    private static final List<String> EMPLOYEE_TYPES = List.of("Pracownik", "Brygadzista", "Kierownik", "Dyrektor");
+
 
     public static void main(String[] args) {
-        //List<String> employeeTypes = List.of("Pracownik", "Brygadzista", "Kierownik", "Dyrektor");
-        List<Employee> employees = prepareEmployeeList(employeeTypes());
-        showEmployees(employees);
-    }
-    public static List<String> employeeTypes(){
-        return List.of("Pracownik", "Brygadzista", "Kierownik", "Dyrektor");
-    }
-
-    private static void showEmployees(List<Employee> employees) {
-        for (Employee employee : employees) {
-            System.out.println(employee.toString());
-        }
-    }
-
-    public static void showEmployeesTypes(List<String> employeesType) {
-        for (int i = 0; i < employeesType.size(); i++) {
-            System.out.println(i + 1 + ". " + employeesType.get(i));
-        }
-    }
-
-    private static List<Employee> prepareEmployeeList(List<String> employeeTypes) {
         List<Employee> employees = new ArrayList<>();
-        String choose;
         do {
-            int empType = chooseEmployeeType(employeeTypes);
-            if (empType < 1 || empType > employeeTypes.size()) {
-                System.out.println("Wybrano błędny typ. Wybierz ponownie");
-                prepareEmployeeList(employeeTypes);
-            }
+            showEmployeesTypes();
+            String empType = chooseEmployeeType();
             Employee employee = createEmployee(empType);
             employees.add(employee);
-            System.out.println("Czy dodać następnego pracownika? (t/n)");
-            choose = scanner.next();
+            System.out.println("Czy dodać kolejnego pracownika? (t/n)");
+        } while (doesUserWantToContinue());
+
+        showEmployees(employees);
+    }
+
+    private static boolean doesUserWantToContinue() {
+        return "t".equals(scanner.next());
+    }
+
+    private static void showEmployeesTypes() {
+        for (int i = 0; i < EMPLOYEE_TYPES.size(); i++) {
+            System.out.println(i + 1 + ". " + EMPLOYEE_TYPES.get(i));
         }
-        while ("t".equals(choose));
-        return employees;
     }
 
-    private static int chooseEmployeeType(List<String> employeeTypes) {
+    private static String chooseEmployeeType() {
         System.out.println("Podaj numer pracownika, który chcesz utworzyć:");
-        showEmployeesTypes(employeeTypes);
-        return scanner.nextInt();
+        int choose = scanner.nextInt();
+        return EMPLOYEE_TYPES.get(choose - 1);
     }
 
-    private static Employee createEmployee(int empType) {
+    private static Employee createEmployee(String empType) {
         switch (empType) {
-            case 1: {
+            case "Pracownik": {
                 System.out.println("Dodajesz pracownika");
-                EmployeeBasicData employeeBasicData = prepareEmployeeBasicData(1);
+                EmployeeBasicData employeeBasicData = prepareEmployeeBasicData();
                 return new Employee(
-                        employeeBasicData.getEmployeeTypeId(),
+                        empType,
                         employeeBasicData.getName(),
                         employeeBasicData.getSurname(),
                         employeeBasicData.getSalary());
             }
-            case 2: {
+            case "Brygadzista": {
                 System.out.println("Dodajesz brygadzistę");
-                EmployeeBasicData employeeBasicData = prepareEmployeeBasicData(2);
+                EmployeeBasicData employeeBasicData = prepareEmployeeBasicData();
                 List<String> tools = createTools();
                 return new Foreman(
-                        employeeBasicData.getEmployeeTypeId(),
+                        empType,
                         employeeBasicData.getName(),
                         employeeBasicData.getSurname(),
                         employeeBasicData.getSalary(),
                         tools);
             }
-            case 3: {
+            case "Kierownik": {
                 System.out.println("Dodajesz kierownika");
-                EmployeeBasicData employeeBasicData = prepareEmployeeBasicData(3);
+                EmployeeBasicData employeeBasicData = prepareEmployeeBasicData();
                 double bonus = createBonus();
                 return new Supervisor(
-                        employeeBasicData.getEmployeeTypeId(),
+                        empType,
                         employeeBasicData.getName(),
                         employeeBasicData.getSurname(),
                         employeeBasicData.getSalary(),
                         bonus);
             }
-            case 4: {
+            case "Dyrektor": {
                 System.out.println("Dodajesz dyrektora");
-                EmployeeBasicData employeeBasicData = prepareEmployeeBasicData(4);
+                EmployeeBasicData employeeBasicData = prepareEmployeeBasicData();
                 double bonus = createBonus();
                 String carId = createCarId();
                 return new Director(
-                        employeeBasicData.getEmployeeTypeId(),
+                        empType,
                         employeeBasicData.getName(),
                         employeeBasicData.getSurname(),
                         employeeBasicData.getSalary(),
@@ -104,27 +90,24 @@ public class EmployeeManager {
         }
     }
 
-    private static EmployeeBasicData prepareEmployeeBasicData(int employeeTypeId) {
+    private static EmployeeBasicData prepareEmployeeBasicData() {
         System.out.println("Podaj imię");
         String name = scanner.next();
         System.out.println("Podaj nazwisko");
         String surname = scanner.next();
         System.out.println("Podaj pensję");
         double salary = scanner.nextDouble();
-        return new EmployeeBasicData(employeeTypeId, name, surname, salary);
+        return new EmployeeBasicData(name, surname, salary);
     }
 
     private static List<String> createTools() {
         List<String> tools = new ArrayList<>();
-        String choice;
         do {
             System.out.println("Podaj narzędzie");
             String tool = scanner.next();
             tools.add(tool);
             System.out.println("Dodać kolejne narzędzie?");
-            choice = scanner.next();
-        }
-        while (choice.equals("t"));
+        } while (doesUserWantToContinue());
         return tools;
     }
 
@@ -136,5 +119,11 @@ public class EmployeeManager {
     private static String createCarId() {
         System.out.println("Podaje numer rejestracyjny:");
         return scanner.next();
+    }
+
+    private static void showEmployees(List<Employee> employees) {
+        for (Employee employee : employees) {
+            System.out.println(employee.toString());
+        }
     }
 }
