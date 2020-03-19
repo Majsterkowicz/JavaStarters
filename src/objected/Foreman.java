@@ -23,7 +23,7 @@ public class Foreman extends Employee {
 
     @Override
     public String toString() {
-        return String.format("ID: %s. %s %s %s, zarabia %s, narzędzia: %s",
+        return String.format("ID: %s %s %s %s, zarabia %s, narzędzia: %s",
                 super.getId(), getEmployeeType(), super.getName(), super.getSurname(), super.getSalary(), tools);
     }
 }

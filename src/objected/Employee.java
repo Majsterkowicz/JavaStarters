@@ -48,10 +48,6 @@ class Employee {
         return employeeType;
     }
 
-    public String getEmployeeType(int employeeTypeId, List<String> employeeTypes) {
-        return employeeTypes.get(employeeTypeId);
-    }
-
     @Override
     public String toString() {
         return String.format("ID %s: %s %s %s, zarabia %s", id, employeeType, name, surname, salary);

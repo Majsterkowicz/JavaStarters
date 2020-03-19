@@ -1,26 +1,33 @@
 package objected;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class EmployeeManager {
 
     private static Scanner scanner = new Scanner(System.in);
-    private static final List<String> EMPLOYEE_TYPES = List.of("Pracownik", "Brygadzista", "Kierownik", "Dyrektor");
-
+    private static final List<EmployeeType> EMPLOYEE_TYPES = Arrays.asList(
+            EmployeeType.PRACOWNIK,
+            EmployeeType.BRYGADZISTA,
+            EmployeeType.KIEROWNIK,
+            EmployeeType.DYREKTOR);
 
     public static void main(String[] args) {
         List<Employee> employees = new ArrayList<>();
         do {
             showEmployeesTypes();
-            String empType = chooseEmployeeType();
+            EmployeeType empType = chooseEmployeeType();
             Employee employee = createEmployee(empType);
             employees.add(employee);
             System.out.println("Czy dodać kolejnego pracownika? (t/n)");
         } while (doesUserWantToContinue());
 
         showEmployees(employees);
+        //TODO wyświetlić liczbę pracowników z podziałem na typy
+        //TODO sprawdzić i poprawić metodę
+        //showNumberOfEmployees(employees, EMPLOYEE_TYPES);
     }
 
     private static boolean doesUserWantToContinue() {
@@ -33,52 +40,52 @@ public class EmployeeManager {
         }
     }
 
-    private static String chooseEmployeeType() {
+    private static EmployeeType chooseEmployeeType() {
         System.out.println("Podaj numer pracownika, który chcesz utworzyć:");
         int choose = scanner.nextInt();
         return EMPLOYEE_TYPES.get(choose - 1);
     }
 
-    private static Employee createEmployee(String empType) {
+    private static Employee createEmployee(EmployeeType empType) {
         switch (empType) {
-            case "Pracownik": {
+            case PRACOWNIK: {
                 System.out.println("Dodajesz pracownika");
                 EmployeeBasicData employeeBasicData = prepareEmployeeBasicData();
                 return new Employee(
-                        empType,
+                        EmployeeType.PRACOWNIK.toString(),
                         employeeBasicData.getName(),
                         employeeBasicData.getSurname(),
                         employeeBasicData.getSalary());
             }
-            case "Brygadzista": {
+            case BRYGADZISTA: {
                 System.out.println("Dodajesz brygadzistę");
                 EmployeeBasicData employeeBasicData = prepareEmployeeBasicData();
                 List<String> tools = createTools();
                 return new Foreman(
-                        empType,
+                        EmployeeType.BRYGADZISTA.toString(),
                         employeeBasicData.getName(),
                         employeeBasicData.getSurname(),
                         employeeBasicData.getSalary(),
                         tools);
             }
-            case "Kierownik": {
+            case KIEROWNIK: {
                 System.out.println("Dodajesz kierownika");
                 EmployeeBasicData employeeBasicData = prepareEmployeeBasicData();
                 double bonus = createBonus();
                 return new Supervisor(
-                        empType,
+                        EmployeeType.KIEROWNIK.toString(),
                         employeeBasicData.getName(),
                         employeeBasicData.getSurname(),
                         employeeBasicData.getSalary(),
                         bonus);
             }
-            case "Dyrektor": {
+            case DYREKTOR: {
                 System.out.println("Dodajesz dyrektora");
                 EmployeeBasicData employeeBasicData = prepareEmployeeBasicData();
                 double bonus = createBonus();
                 String carId = createCarId();
                 return new Director(
-                        empType,
+                        EmployeeType.DYREKTOR.toString(),
                         employeeBasicData.getName(),
                         employeeBasicData.getSurname(),
                         employeeBasicData.getSalary(),
@@ -126,4 +133,39 @@ public class EmployeeManager {
             System.out.println(employee.toString());
         }
     }
+
+    /*private static void showNumberOfEmployees(List<Employee> employees, List<EmployeeType> empType) {
+        int numberOfEmployees = 0;
+        int numberOfForemans = 0;
+        int numberOfSupervisors = 0;
+        int numberOfDirectors = 0;
+        for (int i = 0; i < employees.size(); i++) {
+            switch (empType.get(i)) {
+                case empType.get(0): {
+                    numberOfEmployees++;
+                }
+                break;
+                case empType.get(1): {
+                    numberOfForemans++;
+                }
+                break;
+                case empType.get(2): {
+                    numberOfSupervisors++;
+                }
+                break;
+                case empType.get(3): {
+                    numberOfDirectors++;
+                }
+                default:
+                    System.out.println("Brak pracowników");
+            }
+        }
+        int sumOfEmployees = numberOfEmployees + numberOfForemans + numberOfSupervisors + numberOfDirectors;
+        System.out.println("Liczba pracowników");
+        System.out.println("Łącznie: " + sumOfEmployees + ", a w tym:");
+        System.out.println(EmployeeType.PRACOWNIK.toString() + ": " + numberOfEmployees);
+        System.out.println(EmployeeType.BRYGADZISTA.toString() + ": " + numberOfForemans);
+        System.out.println(EmployeeType.KIEROWNIK.toString() + ": " + numberOfSupervisors);
+        System.out.println(EmployeeType.DYREKTOR.toString() + ": " + numberOfDirectors);
+    }*/
 }
