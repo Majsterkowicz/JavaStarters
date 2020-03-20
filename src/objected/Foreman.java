@@ -6,7 +6,7 @@ public class Foreman extends Employee {
 
     private List<String> tools;
 
-    public Foreman(String employeeType, String name, String surname, double salary, List<String> tools) {
+    public Foreman(EmployeeType employeeType, String name, String surname, double salary, List<String> tools) {
         super(employeeType, name, surname, salary);
         this.tools = tools;
     }
@@ -17,7 +17,7 @@ public class Foreman extends Employee {
     }
 
     @Override
-    public String getEmployeeType() {
+    public EmployeeType getEmployeeType() {
         return super.getEmployeeType();
     }
 

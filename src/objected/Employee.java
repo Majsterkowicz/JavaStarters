@@ -4,14 +4,14 @@ import java.util.List;
 
 class Employee {
 
-    private String employeeType;
+    private EmployeeType employeeType;
     private String name;
     private String surname;
     private double salary;
     private int id;
     private static int nextId = 1;
 
-    public Employee(String employeeTypeId, String name, String surname, double salary) {
+    public Employee(EmployeeType employeeTypeId, String name, String surname, double salary) {
         this.employeeType = employeeTypeId;
         this.name = name;
         this.surname = surname;
@@ -44,7 +44,7 @@ class Employee {
         return id;
     }
 
-    public String getEmployeeType() {
+    public EmployeeType getEmployeeType() {
         return employeeType;
     }
 

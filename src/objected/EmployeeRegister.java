@@ -37,7 +37,7 @@ public class EmployeeRegister {
             System.out.println("Podaj pensję: ");
             double salary = scanner.nextDouble();
 
-            Employee employee = new Employee("pracownik",  name, surname, salary); ///brak id dodałęm roboczo - do poprawki
+            Employee employee = new Employee(EmployeeType.PRACOWNIK,  name, surname, salary); ///brak id dodałęm roboczo - do poprawki
             staff[i] = employee;
         }
         System.out.println("Wprowadzono wszystkich pracowników.");

@@ -1,18 +1,17 @@
 package objected;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+
+import static objected.EmployeeType.*;
 
 public class EmployeeManager {
 
     private static Scanner scanner = new Scanner(System.in);
     private static final List<EmployeeType> EMPLOYEE_TYPES = Arrays.asList(
-            EmployeeType.PRACOWNIK,
-            EmployeeType.BRYGADZISTA,
-            EmployeeType.KIEROWNIK,
-            EmployeeType.DYREKTOR);
+            PRACOWNIK,
+            BRYGADZISTA,
+            KIEROWNIK,
+            DYREKTOR);
 
     public static void main(String[] args) {
         List<Employee> employees = new ArrayList<>();
@@ -27,7 +26,7 @@ public class EmployeeManager {
         showEmployees(employees);
         //TODO wyświetlić liczbę pracowników z podziałem na typy
         //TODO sprawdzić i poprawić metodę
-        //showNumberOfEmployees(employees, EMPLOYEE_TYPES);
+        showNumberOfEmployees(employees);
     }
 
     private static boolean doesUserWantToContinue() {
@@ -52,7 +51,7 @@ public class EmployeeManager {
                 System.out.println("Dodajesz pracownika");
                 EmployeeBasicData employeeBasicData = prepareEmployeeBasicData();
                 return new Employee(
-                        EmployeeType.PRACOWNIK.toString(),
+                        PRACOWNIK,
                         employeeBasicData.getName(),
                         employeeBasicData.getSurname(),
                         employeeBasicData.getSalary());
@@ -62,7 +61,7 @@ public class EmployeeManager {
                 EmployeeBasicData employeeBasicData = prepareEmployeeBasicData();
                 List<String> tools = createTools();
                 return new Foreman(
-                        EmployeeType.BRYGADZISTA.toString(),
+                        BRYGADZISTA,
                         employeeBasicData.getName(),
                         employeeBasicData.getSurname(),
                         employeeBasicData.getSalary(),
@@ -73,7 +72,7 @@ public class EmployeeManager {
                 EmployeeBasicData employeeBasicData = prepareEmployeeBasicData();
                 double bonus = createBonus();
                 return new Supervisor(
-                        EmployeeType.KIEROWNIK.toString(),
+                        KIEROWNIK,
                         employeeBasicData.getName(),
                         employeeBasicData.getSurname(),
                         employeeBasicData.getSalary(),
@@ -85,7 +84,7 @@ public class EmployeeManager {
                 double bonus = createBonus();
                 String carId = createCarId();
                 return new Director(
-                        EmployeeType.DYREKTOR.toString(),
+                        DYREKTOR,
                         employeeBasicData.getName(),
                         employeeBasicData.getSurname(),
                         employeeBasicData.getSalary(),
@@ -134,8 +133,14 @@ public class EmployeeManager {
         }
     }
 
-    /*private static void showNumberOfEmployees(List<Employee> employees, List<EmployeeType> empType) {
-        int numberOfEmployees = 0;
+    private static void showNumberOfEmployees(List<Employee> employees) {
+        Map<EmployeeType, Integer> employeeTypesMap = countEmployeeTypes(employees);
+        for (Map.Entry<EmployeeType, Integer> entry : employeeTypesMap.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+        System.out.println("Liczba pracowników to: " + employees.size());
+
+        /*int numberOfEmployees = 0;
         int numberOfForemans = 0;
         int numberOfSupervisors = 0;
         int numberOfDirectors = 0;
@@ -163,9 +168,23 @@ public class EmployeeManager {
         int sumOfEmployees = numberOfEmployees + numberOfForemans + numberOfSupervisors + numberOfDirectors;
         System.out.println("Liczba pracowników");
         System.out.println("Łącznie: " + sumOfEmployees + ", a w tym:");
-        System.out.println(EmployeeType.PRACOWNIK.toString() + ": " + numberOfEmployees);
-        System.out.println(EmployeeType.BRYGADZISTA.toString() + ": " + numberOfForemans);
-        System.out.println(EmployeeType.KIEROWNIK.toString() + ": " + numberOfSupervisors);
-        System.out.println(EmployeeType.DYREKTOR.toString() + ": " + numberOfDirectors);
-    }*/
+        System.out.println(PRACOWNIK.toString() + ": " + numberOfEmployees);
+        System.out.println(BRYGADZISTA.toString() + ": " + numberOfForemans);
+        System.out.println(KIEROWNIK.toString() + ": " + numberOfSupervisors);
+        System.out.println(DYREKTOR.toString() + ": " + numberOfDirectors);*/
+    }
+
+    private static Map<EmployeeType, Integer> countEmployeeTypes(List<Employee> employees) {
+        Map<EmployeeType, Integer> numberOfEmployees = new TreeMap<>();
+        for (EmployeeType empType : EMPLOYEE_TYPES) {
+            int counter = 0;
+            for (Employee employee : employees) {
+                if (employee.getEmployeeType() == empType) {
+                    counter++;
+                }
+            }
+            numberOfEmployees.put(empType, counter);
+        }
+        return numberOfEmployees;
+    }
 }
