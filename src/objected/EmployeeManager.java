@@ -24,8 +24,6 @@ public class EmployeeManager {
         } while (doesUserWantToContinue());
 
         showEmployees(employees);
-        //TODO wyświetlić liczbę pracowników z podziałem na typy
-        //TODO sprawdzić i poprawić metodę
         showNumberOfEmployees(employees);
     }
 
