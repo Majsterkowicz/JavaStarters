@@ -1,6 +1,7 @@
 package collections;
 
 import java.util.*;
+import java.util.Map.Entry;
 
 public class MapExercises {
 
@@ -8,7 +9,7 @@ public class MapExercises {
 
     public static void main(String[] args) {
         //stworz mape w ktorej kluczem bedzie nazwa państwa a wartości kontynent (kilka par)
-        Map<String, String> countries = new TreeMap<>();
+        Map<String, String> countries = new HashMap<>();
         countries.put("Niemcy", "Europa");
         countries.put("Polska", "Europa");
         countries.put("Kazachstan", "Azja");
@@ -20,6 +21,7 @@ public class MapExercises {
         countries.put("RPA", "Afryka");
         countries.put("Australia", "Australia i Oceania");
         countries.put("Belgia", "Europa");
+        countries.put("Mongolia", "Azja");
 
         /*Map<String, String> lands = Map.of(
                 "Lublin", "lubelskie",
@@ -47,6 +49,7 @@ public class MapExercises {
 
         // wyswietl wszystkie państwa alfabetycznie
         // już zrobione wyżej countreies.keySet() //TODO zrobić HashSet i wykonać sortowanie
+        showAllCountries(countries);
 
         // znajdz kontynent dla którego mamy najwiecej panstw w mapie
         showMostUsedContinent(countries);
@@ -89,6 +92,13 @@ public class MapExercises {
         return continentsListWithoutDuplicates;
     }
 
+    private static void showAllCountries(Map<String, String> countries) {
+        List<String> countriesOnly = new ArrayList<>(countries.keySet());
+        Collections.sort(countriesOnly);
+
+        System.out.println("Lista używanych państw: " + countriesOnly);
+    }
+
     private static int showNumberOfCountries(Map<String, String> countries) {
         return countries.keySet().size();
     }
@@ -110,26 +120,32 @@ public class MapExercises {
                 countedContinents.replace(continent, gettedValue + 1);
             }
         }
-        List<Map.Entry<String, Integer>> continentsEntriesList = new ArrayList<>(countedContinents.entrySet());
-        continentsEntriesList.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+        List<Entry<String, Integer>> continentsEntriesList = new ArrayList<>(countedContinents.entrySet());
+        continentsEntriesList.sort(Entry.comparingByValue(Comparator.reverseOrder()));
         Map<String, Integer> sortedMapByContinentCount = new LinkedHashMap<>();
-        for (Map.Entry<String, Integer> entry : continentsEntriesList) {
+        for (Entry<String, Integer> entry : continentsEntriesList) {
             sortedMapByContinentCount.put(entry.getKey(), entry.getValue());
         }
 
-        Map.Entry<String, Integer> mostUsedContinent = findMostUsedContinent(sortedMapByContinentCount);
-        System.out.println(mostUsedContinent);
+        List<Entry> mostUsedContinent = findMostUsedContinent(sortedMapByContinentCount);
+        System.out.println("Najpopularniejsze kontynenty to: " + mostUsedContinent);
     }
 
-    private static Map.Entry<String, Integer> findMostUsedContinent(Map<String, Integer> countedContinents) {
-        Map.Entry<String, Integer> mostUsedContinent = null;
-        for (Map.Entry<String, Integer> continent : countedContinents.entrySet()) {
+    private static List<Entry> findMostUsedContinent(Map<String, Integer> countedContinents) {
+        Entry<String, Integer> mostUsedContinent = null;
+        List<Entry> mostUsedContinents = new ArrayList<>();
+        for (Entry<String, Integer> continent : countedContinents.entrySet()) {
 
-            if (mostUsedContinent == null || continent.getValue().compareTo(mostUsedContinent.getValue()) > 0) {
+            if (mostUsedContinent == null) {
                 mostUsedContinent = continent;
+                mostUsedContinents.add(continent);
+            } else if (continent.getValue().compareTo(mostUsedContinent.getValue()) == 0) {
+                mostUsedContinents.add(continent);
+            } else if (continent.getValue().compareTo(mostUsedContinent.getValue()) < 0) {
+                break;
             }
             //TODO zmienić z użyciem break
         }
-        return mostUsedContinent;
+        return mostUsedContinents;
     }
 }
