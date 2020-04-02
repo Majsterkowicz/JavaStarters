@@ -56,9 +56,6 @@ public class MapExercises {
 
         // dodaj listę z kontynentami które chcesz wyszukac. następnei sprawdz ile razy kazdy kontynent z danej listy wystepuje w mapie
 
-        //TODO KOLEJKI
-        //TODO Lista zakupów i paragon
-
         //TODO ćwiczenia z setami
     }
 
