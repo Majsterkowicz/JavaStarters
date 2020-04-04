@@ -9,19 +9,19 @@ public class MapExercises {
 
     public static void main(String[] args) {
         //stworz mape w ktorej kluczem bedzie nazwa państwa a wartości kontynent (kilka par)
-        Map<String, String> countries = new HashMap<>();
-        countries.put("Niemcy", "Europa");
-        countries.put("Polska", "Europa");
-        countries.put("Kazachstan", "Azja");
-        countries.put("Chile", "Ameryka Południowa");
-        countries.put("Chiny", "Azja");
-        countries.put("Kanada", "Ameryka Północna");
-        countries.put("Brazylia", "Ameryka Południowa");
-        countries.put("Algieria", "Afryka");
-        countries.put("RPA", "Afryka");
-        countries.put("Australia", "Australia i Oceania");
-        countries.put("Belgia", "Europa");
-        countries.put("Mongolia", "Azja");
+        Map<String, String> countriesWithContinents = new HashMap<>();
+        countriesWithContinents.put("Niemcy", "Europa");
+        countriesWithContinents.put("Polska", "Europa");
+        countriesWithContinents.put("Kazachstan", "Azja");
+        countriesWithContinents.put("Chile", "Ameryka Południowa");
+        countriesWithContinents.put("Chiny", "Azja");
+        countriesWithContinents.put("Kanada", "Ameryka Północna");
+        countriesWithContinents.put("Brazylia", "Ameryka Południowa");
+        countriesWithContinents.put("Algieria", "Afryka");
+        countriesWithContinents.put("RPA", "Afryka");
+        countriesWithContinents.put("Australia", "Australia i Oceania");
+        countriesWithContinents.put("Belgia", "Europa");
+        countriesWithContinents.put("Mongolia", "Azja");
 
         /*Map<String, String> lands = Map.of(
                 "Lublin", "lubelskie",
@@ -31,37 +31,43 @@ public class MapExercises {
         //wyswietl kontynent dla danego kraju
         System.out.println("Wybierz kraj");
         String choosenCountry = scanner.next();
-        findContinent(countries, choosenCountry);
+        findContinent(countriesWithContinents, choosenCountry);
 
         // wyswietl wszystkie panstwa
-        System.out.println(countries.keySet());
+        System.out.println(countriesWithContinents.keySet());
 
         // wyswietl wszystkie kontynenty (bez powtórzen)
-        showAllContinents(countries);
+        List<String> continentsList = showAllContinents(countriesWithContinents);
+        System.out.println("W liście użyto kontynenty: " + continentsList);
 
         // sprawdz czy mapa zawiera Polskę
-        System.out.println("Czy lista zawiera kraj Polska? " + countries.containsKey("Polska"));
+        System.out.println("Czy lista zawiera kraj Polska? " + countriesWithContinents.containsKey("Polska"));
 
         // podaj rozmiar mapy
-        int numberOfCountries = showNumberOfCountries(countries);
-        int numberOfContinents = showNumberOfContinents(countries);
-        System.out.println("Mapa zawiera " + numberOfCountries + " krajów oraz " + numberOfContinents + " kontynentów.");
+        System.out.println("Mapa zawiera " + countriesWithContinents.keySet().size() + " krajów oraz " +
+                continentsList.size() + " kontynentów.");
 
         // wyswietl wszystkie państwa alfabetycznie
-        // już zrobione wyżej countreies.keySet() //TODO zrobić HashSet i wykonać sortowanie
-        showAllCountries(countries);
+        // DISCLAIMER przy TreeMap sortowanie wykonuje się samo; countreies.keySet()
+        System.out.println("Używane państwa to: " + showAllCountries(countriesWithContinents));
 
         // znajdz kontynent dla którego mamy najwiecej panstw w mapie
-        showMostUsedContinent(countries);
+        showMostUsedContinents(countriesWithContinents);
 
         // dodaj listę z kontynentami które chcesz wyszukac. następnei sprawdz ile razy kazdy kontynent z danej listy wystepuje w mapie
+        // pobierz kontynent
+        // dodaj do listy (pętla)
+        // iteracja i sprawdzenie z listą policzonych kontynentów
+        // wyświetlenie wybranych par
+        showUsageOfTypedContinents(countriesWithContinents);
+
 
         //TODO ćwiczenia z setami
     }
 
-    private static void findContinent(Map<String, String> countries, String choosenCountry) {
-        String checkedChoosenCountry = countries.get(choosenCountry);
-        String messageCorrect = checkedChoosenCountry != null ?
+    private static void findContinent(Map<String, String> countriesWithContinents, String choosenCountry) {
+        String checkedChoosenCountry = countriesWithContinents.get(choosenCountry);
+        String outputMessage = checkedChoosenCountry != null ?
                 "Kraj " + choosenCountry + " znajduje się w: " + checkedChoosenCountry :
                 "Wybrano błędny kraj";
         /*if (checkedChoosenCountry != null) {
@@ -69,80 +75,116 @@ public class MapExercises {
         } else {
             System.out.println("Wybrano błędny kraj");
         }*/
-        System.out.println(messageCorrect);
+        System.out.println(outputMessage);
     }
 
-    private static void showAllContinents(Map<String, String> countries) {
-        List<String> continents = new ArrayList<>(countries.values());
-        List<String> continentsWihoutDuplicates = removeDuplicates(continents);
-
-        System.out.println(continentsWihoutDuplicates); //TODO zrobić na przyszłość z setem (bez powtórzeń)
+    private static List<String> showAllContinents(Map<String, String> countriesWithContinents) {
+        List<String> continents = new ArrayList<>(countriesWithContinents.values());
+        return (removeDuplicates(continents)); //TODO zrobić na przyszłość z setem (bez powtórzeń)
     }
 
-    private static List<String> removeDuplicates(List<String> continents) {
-        List<String> continentsListWithoutDuplicates = new ArrayList<>();
-        for (String country : continents) {
-            if (!continentsListWithoutDuplicates.contains(country)) {
-                continentsListWithoutDuplicates.add(country);
+    private static List<String> removeDuplicates(List<String> inputList) {
+        List<String> listWithoutDuplicates = new ArrayList<>();
+        for (String listObject : inputList) {
+            if (!listWithoutDuplicates.contains(listObject)) {
+                listWithoutDuplicates.add(listObject);
             }
         }
-        return continentsListWithoutDuplicates;
+        return listWithoutDuplicates;
     }
 
-    private static void showAllCountries(Map<String, String> countries) {
-        List<String> countriesOnly = new ArrayList<>(countries.keySet());
+    private static List<String> showAllCountries(Map<String, String> countriesWithContinents) {
+        List<String> countriesOnly = new ArrayList<>(countriesWithContinents.keySet());
         Collections.sort(countriesOnly);
-
-        System.out.println("Lista używanych państw: " + countriesOnly);
+        return countriesOnly;
     }
 
-    private static int showNumberOfCountries(Map<String, String> countries) {
-        return countries.keySet().size();
+    private static void showMostUsedContinents(Map<String, String> countriesWithContinents) {
+        Map<String, Integer> continentsWithUsage = countUsageOfContinents(countriesWithContinents);
+        Map<String, Integer> sortedContinentsByUsage = sortContinentsByUsage(continentsWithUsage);
+        Map<String, Integer> mostUsageContinents = findMostUsedContinent(sortedContinentsByUsage);
+        System.out.println("Najczęściej użytym kontynentem jest: " + mostUsageContinents);
     }
 
-    private static int showNumberOfContinents(Map<String, String> countries) {
-        List<String> continents = new ArrayList<>(countries.values());
-        List<String> continentsWihoutDuplicates = removeDuplicates(continents);
-        return continentsWihoutDuplicates.size();
-    }
-
-    private static void showMostUsedContinent(Map<String, String> countries) {
-        Map<String, Integer> countedContinents = new HashMap<>();
-        List<String> listOfContinents = new ArrayList<>(countries.values());
+    private static Map<String, Integer> countUsageOfContinents(Map<String, String> countriesWithContinents) {
+        Map<String, Integer> continentsWithUsage = new HashMap<>();
+        List<String> listOfContinents = new ArrayList<>(countriesWithContinents.values());
         for (String continent : listOfContinents) {
-            if (!countedContinents.containsKey(continent)) {
-                countedContinents.put(continent, 1);
+            if (!continentsWithUsage.containsKey(continent)) {
+                continentsWithUsage.put(continent, 1);
             } else {
-                Integer gettedValue = countedContinents.get(continent);
-                countedContinents.replace(continent, gettedValue + 1);
+                Integer continentFromList = continentsWithUsage.get(continent);
+                continentsWithUsage.replace(continent, continentFromList + 1);
             }
         }
+        return continentsWithUsage;
+    }
+
+    private static Map<String, Integer> sortContinentsByUsage(Map<String, Integer> countedContinents) {
         List<Entry<String, Integer>> continentsEntriesList = new ArrayList<>(countedContinents.entrySet());
         continentsEntriesList.sort(Entry.comparingByValue(Comparator.reverseOrder()));
-        Map<String, Integer> sortedMapByContinentCount = new LinkedHashMap<>();
+        Map<String, Integer> sortedMapByContinentUsage = new LinkedHashMap<>();
         for (Entry<String, Integer> entry : continentsEntriesList) {
-            sortedMapByContinentCount.put(entry.getKey(), entry.getValue());
+            sortedMapByContinentUsage.put(entry.getKey(), entry.getValue());
         }
-
-        List<Entry> mostUsedContinent = findMostUsedContinent(sortedMapByContinentCount);
-        System.out.println("Najpopularniejsze kontynenty to: " + mostUsedContinent);
+        return sortedMapByContinentUsage;
     }
 
-    private static List<Entry> findMostUsedContinent(Map<String, Integer> countedContinents) {
+    private static Map<String, Integer> findMostUsedContinent(Map<String, Integer> countedContinents) {
         Entry<String, Integer> mostUsedContinent = null;
-        List<Entry> mostUsedContinents = new ArrayList<>();
-        for (Entry<String, Integer> continent : countedContinents.entrySet()) {
+        Map<String, Integer> mostUsedContinents = new HashMap<>();
+        for (Entry<String, Integer> continentWithUsage : countedContinents.entrySet()) {
 
             if (mostUsedContinent == null) {
-                mostUsedContinent = continent;
-                mostUsedContinents.add(continent);
-            } else if (continent.getValue().compareTo(mostUsedContinent.getValue()) == 0) {
-                mostUsedContinents.add(continent);
-            } else if (continent.getValue().compareTo(mostUsedContinent.getValue()) < 0) {
+                mostUsedContinent = continentWithUsage;
+                mostUsedContinents.put(continentWithUsage.getKey(), continentWithUsage.getValue());
+            } else if (continentWithUsage.getValue().compareTo(mostUsedContinent.getValue()) == 0) {
+                mostUsedContinents.put(continentWithUsage.getKey(), continentWithUsage.getValue());
+            } else if (continentWithUsage.getValue().compareTo(mostUsedContinent.getValue()) < 0) {
                 break;
             }
-            //TODO zmienić z użyciem break
         }
         return mostUsedContinents;
+    }
+
+    private static void showUsageOfTypedContinents(Map<String, String> continentsWithCountries) {
+        List<String> continentsToCheck = createContinentsListToCheck();
+        Map<String, Integer> countedUsageOfContinents = countUsageOfContinents(continentsWithCountries);
+        Map<String, Integer> checkedContinentsResult = new HashMap<>();
+        for (Entry<String, Integer> continentWithUsage : countedUsageOfContinents.entrySet()) {
+            for (String typedCountry : continentsToCheck) {
+                if (typedCountry.equals(continentWithUsage.getKey())) {
+                    checkedContinentsResult.put(continentWithUsage.getKey(), continentWithUsage.getValue());
+                }
+            }
+        }
+        System.out.println("Dla wybranych kontynentów, ich użycie jest następujące: " + checkedContinentsResult);
+    }
+
+    private static List<String> createContinentsListToCheck() {
+        List<String> continentsToCheck = new ArrayList<>();
+        String choice;
+        do {
+            System.out.println("Wybierz kontynent do wyszukania");
+            String typedLine = scanner.next();
+            String typedContinent = splitLineBySpacebar(typedLine);
+            continentsToCheck.add(typedContinent);
+            System.out.println("Czy dodać kolejny kontynent? (T/N)");
+            choice = scanner.next().toUpperCase();
+        } while (choice.equals("T"));
+        return continentsToCheck;
+    }
+
+    private static String splitLineBySpacebar(String line) {
+        String[] splittedLine = line.split(" ");
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < splittedLine.length; i++) {
+            builder.append(splittedLine[i]);
+            if (i == splittedLine.length - 1) {
+                break;
+            }
+            builder.append(" ");
+        }
+        return builder.toString();
     }
 }
