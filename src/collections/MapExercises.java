@@ -164,10 +164,11 @@ public class MapExercises {
     private static List<String> createContinentsListToCheck() {
         List<String> continentsToCheck = new ArrayList<>();
         String choice;
+        String typedContinent;
         do {
-            System.out.println("Wybierz kontynent do wyszukania");
-            String typedLine = scanner.next();
-            String typedContinent = splitLineBySpacebar(typedLine);
+            System.out.println("Podaj kontynenet do wyszukania:");
+            typedContinent = readLine();
+            // String typedContinent = splitLineBySpacebar();
             continentsToCheck.add(typedContinent);
             System.out.println("Czy dodać kolejny kontynent? (T/N)");
             choice = scanner.next().toUpperCase();
@@ -175,7 +176,11 @@ public class MapExercises {
         return continentsToCheck;
     }
 
-    private static String splitLineBySpacebar(String line) {
+    private static String splitLineBySpacebar() {
+        String line;
+        System.out.println("Podaj kontynent do wyszukania:");
+        line = scanner.nextLine();
+        System.out.println("Zatwierdzono.");
         String[] splittedLine = line.split(" ");
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < splittedLine.length; i++) {
@@ -186,5 +191,11 @@ public class MapExercises {
             builder.append(" ");
         }
         return builder.toString();
+    }
+
+    private static String readLine(){
+        String typedLine;
+        typedLine = scanner.next();
+        return typedLine;
     }
 }
