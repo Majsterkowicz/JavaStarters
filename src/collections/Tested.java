@@ -8,10 +8,12 @@ public class Tested {
 
     public static void main(String[] args) {
 
-        String string;
-        System.out.println("Podaj wyrażenie: ");
-        string = scanner.nextLine();
-        System.out.println("Podano: " + string);
+        do {
+            String string;
+            System.out.println("Podaj wyrażenie: ");
+            string = scanner.nextLine();
+            System.out.println("Podano: " + string);
+        } while (true);
 
     }
 }

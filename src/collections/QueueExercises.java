@@ -1,27 +1,64 @@
 package collections;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class QueueExercises {
 
+    public static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
+        System.out.println("Witaj w programie Paragon+");
+        Queue<Product> productsQueue = scanProducts();
+        printProductsBill(productsQueue);
+    }
 
-        Queue<Product> productQueue = new LinkedList<>();
+    private static Queue<Product> scanProducts() {
+        System.out.println("Rozpoczynasz od dodania pierwszego produktu.");
+        Queue<Product> productsQueue = new LinkedList<>();
+        do {
+            Product product = createNewProduct();
+            productsQueue.add(product);
+        } while (isContinueAddingProduct());
+        return productsQueue;
+    }
 
-        //TODO dodawanie produktów bezpośrednio do kolejki
-        //TODO zapytanie o dodawawanie produktu lub druk paragonu
-        //TODO komunikat o wydrukowanym całym paragonie
+    private static Product createNewProduct() {
+        System.out.println("Dodajesz produkt");
+        scanner.nextLine();
+        System.out.println("Proszę podać nazwę produktu.");
+        String productName = scanner.nextLine();
+        System.out.println("Proszę podać cenę jednostkową.");
+        double productPrice = scanner.nextDouble();
+        System.out.println("Proszę podać ilość produktu.");
+        double productQuantity = scanner.nextDouble();
+        return new Product(productName, productPrice, productQuantity);
+    }
 
-        System.out.println(productQueue);
+    private static boolean isContinueAddingProduct() {
+        System.out.println("Czy dodajesz kolejny produkt? T/N");
+        String choice = scanner.next();
+        return "t".equalsIgnoreCase(choice);
+    }
 
-        productQueue.poll();
+    private static void printProductsBill(Queue<Product> productsQueue) {
+        double summaryPrice = 0;
+        System.out.println("Twoje zakupy:");
+        do {
+            Product productInBuffer = productsQueue.poll();
+            if (productInBuffer == null) {
+                break;
+            }
+            double productFinalPrice = computeFinalPrice(productInBuffer);
+            System.out.println(productInBuffer.getName() + " ilość: " +
+                    productInBuffer.getQuantity() +
+                    " wartość: " + productFinalPrice);
+            summaryPrice += productFinalPrice;
+        } while (!productsQueue.isEmpty());
+        System.out.println("Lącznie do zaplaty: " + summaryPrice);
+        System.out.println("Koniec paragonu");
+    }
 
-        if (productQueue.poll() == null)
-
-        System.out.println(productQueue);
-
+    private static double computeFinalPrice(Product product) {
+        return product.getPrice() * product.getQuantity();
     }
 }

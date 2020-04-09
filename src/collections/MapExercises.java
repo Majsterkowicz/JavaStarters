@@ -153,7 +153,7 @@ public class MapExercises {
         Map<String, Integer> checkedContinentsResult = new HashMap<>();
         for (Entry<String, Integer> continentWithUsage : countedUsageOfContinents.entrySet()) {
             for (String typedCountry : continentsToCheck) {
-                if (typedCountry.equals(continentWithUsage.getKey())) {
+                if (typedCountry.equalsIgnoreCase(continentWithUsage.getKey())) {
                     checkedContinentsResult.put(continentWithUsage.getKey(), continentWithUsage.getValue());
                 }
             }
@@ -166,36 +166,14 @@ public class MapExercises {
         String choice;
         String typedContinent;
         do {
+            scanner.nextLine();
             System.out.println("Podaj kontynenet do wyszukania:");
-            typedContinent = readLine();
-            // String typedContinent = splitLineBySpacebar();
+            typedContinent = scanner.nextLine();
             continentsToCheck.add(typedContinent);
             System.out.println("Czy dodać kolejny kontynent? (T/N)");
-            choice = scanner.next().toUpperCase();
-        } while (choice.equals("T"));
+            choice = scanner.next();
+        } while ("T".equalsIgnoreCase(choice));
         return continentsToCheck;
     }
 
-    private static String splitLineBySpacebar() {
-        String line;
-        System.out.println("Podaj kontynent do wyszukania:");
-        line = scanner.nextLine();
-        System.out.println("Zatwierdzono.");
-        String[] splittedLine = line.split(" ");
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < splittedLine.length; i++) {
-            builder.append(splittedLine[i]);
-            if (i == splittedLine.length - 1) {
-                break;
-            }
-            builder.append(" ");
-        }
-        return builder.toString();
-    }
-
-    private static String readLine(){
-        String typedLine;
-        typedLine = scanner.next();
-        return typedLine;
-    }
 }
