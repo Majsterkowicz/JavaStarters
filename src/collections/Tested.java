@@ -14,6 +14,5 @@ public class Tested {
             string = scanner.nextLine();
             System.out.println("Podano: " + string);
         } while (true);
-
     }
 }

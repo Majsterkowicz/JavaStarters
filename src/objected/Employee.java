@@ -1,10 +1,8 @@
 package objected;
 
-import java.util.List;
-
 class Employee {
 
-    private EmployeeType employeeType;
+    private final EmployeeType employeeType;
     private String name;
     private String surname;
     private double salary;
