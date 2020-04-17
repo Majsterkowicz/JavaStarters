@@ -4,8 +4,12 @@ import java.util.Map;
 
 public class Circle extends Shape {
 
-    public Circle(ShapeType shapeType, Map<String, Double> shapeParameters) {
-        super(shapeType, shapeParameters);
+    private double radius;
+
+    public Circle(double radius) {
+        super(ShapeType.CIRCLE);
+        this.radius = radius;
+        setShapeArea(calculateArea());
     }
 
     @Override
@@ -19,13 +23,12 @@ public class Circle extends Shape {
     }
 
     @Override
-    public double getShapeArea() {
+    public Double getShapeArea() {
         return super.getShapeArea();
     }
 
     @Override
-    public double calculateArea(Map<String, Double> shapeParameters) {
-        double radiusValue = shapeParameters.get("radius");
-        return Math.PI * radiusValue * radiusValue;
+    public double calculateArea() {
+        return Math.PI * radius * radius;
     }
 }

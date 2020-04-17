@@ -2,16 +2,14 @@ package collections;
 
 import java.util.*;
 
-public class Shape {
+public abstract class Shape {
 
     private final ShapeType shapeType;
     private Map<String, Double> shapeParameters;
-    private double shapeArea;
+    private Double shapeArea;
 
-    public Shape(ShapeType shapeType, Map<String, Double> shapeParameters) {
+    public Shape(ShapeType shapeType) {
         this.shapeType = shapeType;
-        this.shapeParameters = shapeParameters;
-        shapeArea = calculateArea(shapeParameters);
     }
 
     public ShapeType getShapeType() {
@@ -22,15 +20,19 @@ public class Shape {
         return shapeParameters;
     }
 
-    public double getShapeArea() {
+    public Double getShapeArea() {
         return shapeArea;
     }
 
-    public double calculateArea(Map<String, Double> shapeParameters) {
-        return 0;
+    public void setShapeArea(double shapeArea) {
+        this.shapeArea = shapeArea;
     }
+
+    public abstract double calculateArea();
 
     public String toString() {
         return String.format("%s has parameters: %s. Shape area is: %s", getShapeType(), getShapeParameters(), getShapeArea());
     }
+
+    //public String printData();
 }

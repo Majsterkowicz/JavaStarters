@@ -1,6 +1,6 @@
-package collections;
-
-public class ShapeStatistics extends ShapeCalculator {
-
-
-}
+//package collections;
+//
+//public class ShapeStatistics extends ShapeCalculator {
+//
+//
+//}
