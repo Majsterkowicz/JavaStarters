@@ -8,10 +8,9 @@ public class Shape {
     private Map<String, Double> shapeParameters;
     private double shapeArea;
 
-    public Shape(ShapeType shapeType, Map<String, Double> shapeParameters/*, double shapeArea*/) {
+    public Shape(ShapeType shapeType, Map<String, Double> shapeParameters) {
         this.shapeType = shapeType;
         this.shapeParameters = shapeParameters;
-        /*this.shapeArea = shapeArea;*/
         shapeArea = calculateArea(shapeParameters);
     }
 
@@ -27,7 +26,11 @@ public class Shape {
         return shapeArea;
     }
 
-    public double calculateArea(Map<String, Double> shapeParameters){
+    public double calculateArea(Map<String, Double> shapeParameters) {
         return 0;
+    }
+
+    public String toString() {
+        return String.format("%s has parameters: %s. Shape area is: %s", getShapeType(), getShapeParameters(), getShapeArea());
     }
 }

@@ -4,8 +4,8 @@ import java.util.Map;
 
 public class Circle extends Shape {
 
-    public Circle(ShapeType shapeType, Map<String, Double> shapeParameters/*, double shapeArea*/) {
-        super(shapeType, shapeParameters/*, shapeArea*/);
+    public Circle(ShapeType shapeType, Map<String, Double> shapeParameters) {
+        super(shapeType, shapeParameters);
     }
 
     @Override

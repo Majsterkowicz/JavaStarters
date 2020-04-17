@@ -2,9 +2,9 @@ package collections;
 
 import java.util.Map;
 
-public class Square extends Shape {
+public class Triangle extends Shape {
 
-    public Square(ShapeType shapeType, Map<String, Double> shapeParameters){
+    public Triangle(ShapeType shapeType, Map<String, Double> shapeParameters){
         super(shapeType, shapeParameters);
     }
 
@@ -25,7 +25,8 @@ public class Square extends Shape {
 
     @Override
     public double calculateArea(Map<String, Double> shapeParameters) {
-        double sideValue = shapeParameters.get("side");
-        return sideValue * sideValue;
+        double baseValue = shapeParameters.get("base");
+        double heightValue = shapeParameters.get("height");
+        return baseValue * heightValue * 0.5;
     }
 }
