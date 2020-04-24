@@ -1,54 +1,39 @@
-package collections;
+package shapes;
 
 import java.util.*;
 
-import static collections.ShapeType.*;
-
-class CustomComparator implements Comparator<Shape> {
-
-    @Override
-    public int compare(Shape shape1, Shape shape2) {
-        return Double.compare(shape1.getShapeArea(), shape2.getShapeArea());
-//
-//        double differential = shape1.getShapeArea() - (shape2.getShapeArea());
-//        if (differential > 0) {
-//            return 1;
-//        } else if (differential == 0) {
-//            return 0;
-//        }
-//        return -1;
-    }
-}
+import static shapes.ShapeGroup.*;
 
 public class ShapeCalculator {
 
-    private static final List<ShapeType> SHAPE_TYPE_LIST = Arrays.asList(
-            CIRCLE, TRIANGLE, SQUARE, RECTANGLE, PENTAGON, HEXAGON);
+    private static final List<ShapeGroup> SHAPE_TYPE_LIST = Arrays.asList(
+            CIRCLE, TRIANGLE, RECTANGLE, REGULAR_POLYGON);
 
     public static void main(String[] args) {
 //        List<Shape> listOfShapes = createListOfShapes();
         System.out.println("PRZED SORTOWANIEM");
         List<Shape> listOfShapes = ShapeFactory.provideShapes();
-        showShapesDetails(listOfShapes);
+       /* showShapesDetails(listOfShapes);
         System.out.println("POSORTOWANE");
         List<Shape> sortedByShapeArea = sortShapesByArea(listOfShapes);
-        sortedByShapeArea.forEach(System.out::println);
+        showShapesDetails(sortedByShapeArea);
+        System.out.println("The biggest shape area is:");
+        showShapesDetails(findTheBiggestShape(sortedByShapeArea));*/
+//        sortedByShapeArea.forEach(System.out::println);
 
 //        List<Shape> theBiggestShapes = findTheBiggestShape(listOfShapes);
 //        System.out.println(theBiggestShapes.toString());
-
-
     }
 
-    private static void showShapesDetails(List<Shape> listOfShapes) {
+    /*private static void showShapesDetails(List<Shape> listOfShapes) {
         for (Shape shape : listOfShapes) {
-            System.out.println(shape.toString());
+            System.out.println(shape.printShapeData());
         }
     }
 
     private static List<Shape> sortShapesByArea(List<Shape> listOfShapes) {
 //        listOfShapes.sort(Comparator.comparing(Shape::getShapeArea));
-        listOfShapes.sort(new CustomComparator().reversed());
+        listOfShapes.sort(new CustomShapeComparator().reversed());
         return listOfShapes;
     }
 
@@ -60,12 +45,12 @@ public class ShapeCalculator {
             if (theBiggestShape == null) {
                 theBiggestShape = shape;
                 theBiggestShapes.add(shape);
-            } else if (shape.getShapeArea() == theBiggestShape.getShapeArea()) {
+            } else if (shape.getShapeArea().equals(theBiggestShape.getShapeArea())) {
                 theBiggestShapes.add(shape);
             } else if (shape.getShapeArea() < theBiggestShape.getShapeArea()) {
                 break;
             }
         }
         return theBiggestShapes;
-    }
+    }*/
 }
