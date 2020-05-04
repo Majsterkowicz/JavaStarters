@@ -12,7 +12,7 @@ public class ShapeCalculator {
     public static void main(String[] args) {
 //        List<Shape> listOfShapes = createListOfShapes();
         System.out.println("PRZED SORTOWANIEM");
-        List<Shape> listOfShapes = ShapeFactory.provideShapes();
+        List<Shape> listOfShapes = ShapeFactory.providedShapes();
        /* showShapesDetails(listOfShapes);
         System.out.println("POSORTOWANE");
         List<Shape> sortedByShapeArea = sortShapesByArea(listOfShapes);

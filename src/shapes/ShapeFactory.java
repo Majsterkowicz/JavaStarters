@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ShapeFactory {
 
-    public static List<Shape> provideShapes() {
+    public static List<Shape> providedShapes() {
         List<Shape> shapes = new ArrayList<>();
         shapes.add(new Circle(2.0));
         shapes.add(new Circle(4.0));

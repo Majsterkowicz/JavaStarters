@@ -6,31 +6,25 @@ import static shapes.ShapeGroup.*;
 
 public class ShapeStatistics {
 
-    private static final List<ShapeGroup> SHAPE_TYPE_LIST = Arrays.asList(
-            CIRCLE, TRIANGLE, RECTANGLE, REGULAR_POLYGON); //TODO przerobić na SET
+    private static final List<ShapeGroup> shapeTypes = Arrays.asList
+            (CIRCLE, TRIANGLE, RECTANGLE, REGULAR_POLYGON); //TODO przerobić na SET
 
     public static void main(String[] args) {
 
         System.out.println("PRZED SORTOWANIEM");
-        List<Shape> listOfShapes = ShapeFactory.provideShapes(); //TODO ewentualnie zmiana na SET
+        List<Shape> listOfShapes = ShapeFactory.providedShapes();
         showShapesDetails(listOfShapes);
         System.out.println("POSORTOWANE");
         List<Shape> sortedByShapeArea = sortShapesByArea(listOfShapes);
         showShapesDetails(sortedByShapeArea);
         List<Shape> theBiggestShapes = findFirstBigShape(sortedByShapeArea);
-//        System.out.println(theBiggestShapes.toString());
+        System.out.println("The biggest shape is:");
         showShapesDetails(theBiggestShapes);
-        //TODO Mapa <ShapeGroup, Lista kształtów)
-        Map<ShapeGroup, Integer> numberOfShapesInGroups = countNumberOfShapesInGroup(listOfShapes); //TODO zmienić privided shapes
-        System.out.println("Each shape group contains: " + numberOfShapesInGroups);
-        Map<ShapeGroup, Double> totalShapesAreaByGroup = sumAreasOfShapesInGroup(ShapeFactory.provideShapes());
+        Map<ShapeGroup, List<Shape>> mappedShapes = mapShapesByGroup(listOfShapes);
+        showNumberOfShapesInGroup(mappedShapes);
+        Map<ShapeGroup, Double> totalShapesAreaByGroup = sumAreasOfShapesInGroup(mappedShapes);
         System.out.println("Total shapes areas in each group: " + totalShapesAreaByGroup);
-        List<List<Shape>> listOfFilteredShapes = List.of(
-        filterShapesByShapeGroup(ShapeFactory.provideShapes(), CIRCLE),
-        filterShapesByShapeGroup(ShapeFactory.provideShapes(), TRIANGLE),
-        filterShapesByShapeGroup(ShapeFactory.provideShapes(), RECTANGLE),
-        filterShapesByShapeGroup(ShapeFactory.provideShapes(), REGULAR_POLYGON)
-        );
+        showTheBiggestShapeOfEachGroup(mappedShapes);
     }
 
     private static void showShapesDetails(List<Shape> listOfShapes) {
@@ -45,66 +39,60 @@ public class ShapeStatistics {
         return listOfShapes;
     }
 
-    private static List<Shape> findFirstBigShape(List<Shape> listOfShapes) {
+    private static List<Shape> findFirstBigShape(List<Shape> listOfSortedShapes) {
         Shape theBiggestShape = null;
         List<Shape> theBiggestShapes = new ArrayList<>();
-        for (Shape shape : listOfShapes) {
-
+        for (Shape shape : listOfSortedShapes) {
             if (theBiggestShape == null) {
                 theBiggestShape = shape;
                 theBiggestShapes.add(shape);
             } else if (shape.getShapeArea().equals(theBiggestShape.getShapeArea())) {
                 theBiggestShapes.add(shape);
-            } else if (shape.getShapeArea() < theBiggestShape.getShapeArea()) {
+            } else /*if (shape.getShapeArea() < theBiggestShape.getShapeArea())*/ {
                 break;
             }
         }
         return theBiggestShapes;
     }
 
-
-    private static Map<ShapeGroup,Integer> countNumberOfShapesInGroup(List<Shape> provideShapes) {
-        Map<ShapeGroup, Integer> numberOfShapesInGroup = new HashMap<>();
-        int counter = 0;
-        for (ShapeGroup shapeEnum : SHAPE_TYPE_LIST){
-            for (Shape shape : provideShapes){
-                if (shape.getShapeGroup().equals(shapeEnum)){
-                    counter ++;
+    private static Map<ShapeGroup, List<Shape>> mapShapesByGroup(List<Shape> listOfShapes) {
+        Map<ShapeGroup, List<Shape>> mappedShapesByGroup = new HashMap<>();
+        List<Shape> oneGroupShapes = new ArrayList<>();
+        for (ShapeGroup groupOfShape : shapeTypes) {
+            oneGroupShapes.clear();
+            for (Shape shape : listOfShapes) {
+                if (shape.getShapeGroup().equals(groupOfShape)) {
+                    oneGroupShapes.add(shape);
                 }
             }
-            numberOfShapesInGroup.put(shapeEnum, counter);
+            mappedShapesByGroup.put(groupOfShape, oneGroupShapes);
         }
-        return numberOfShapesInGroup;
+        return mappedShapesByGroup;
     }
 
-    private static Map<ShapeGroup, Double> sumAreasOfShapesInGroup(List<Shape> provideShapes) {
+    private static void showNumberOfShapesInGroup(Map<ShapeGroup, List<Shape>> mappedShapes) {
+        for (Map.Entry<ShapeGroup, List<Shape>> mapEntry : mappedShapes.entrySet()) {
+            System.out.println(String.format("%s group contains %s shapes", mapEntry.getKey(), mapEntry.getValue().size()));
+        }
+    }
+
+    private static Map<ShapeGroup, Double> sumAreasOfShapesInGroup(Map<ShapeGroup, List<Shape>> mappedShapes) {
         Map<ShapeGroup, Double> totalAreaInGroup = new HashMap<>();
         double totalSum = 0.0;
-        for (ShapeGroup shapeEnum : SHAPE_TYPE_LIST){
-            for (Shape shape : provideShapes){
+        for (Map.Entry<ShapeGroup, List<Shape>> shapeEntry : mappedShapes.entrySet()) {
+            for (Shape shape : shapeEntry.getValue()) {
                 totalSum = totalSum + shape.getShapeArea();
             }
-            totalAreaInGroup.put(shapeEnum, totalSum);
+            totalAreaInGroup.put(shapeEntry.getKey(), totalSum);
         }
         return totalAreaInGroup;
     }
 
-    private static List<Shape> showTheBiggestShapeOfEachArea (List<Shape> listOfShapes){
-        for (ShapeGroup shapeGroup : ShapeGroup.values()){
-            filterShapesByShapeGroup(ShapeFactory.provideShapes(), shapeGroup);
+    private static void showTheBiggestShapeOfEachGroup(Map<ShapeGroup, List<Shape>> mappedShapes) {
+        System.out.println("The biggest shapes of each group are:");
+        for (Map.Entry<ShapeGroup, List<Shape>> shapeEntry : mappedShapes.entrySet()) {
+            List<Shape> bigShape = findFirstBigShape(sortShapesByArea(shapeEntry.getValue()));
+            showShapesDetails(bigShape);
         }
-        List<Shape> sortedShapesByArea;
-        sortedShapesByArea = sortShapesByArea(listOfShapes);
-        return findFirstBigShape(sortedShapesByArea);
-    }
-
-    private static List<Shape> filterShapesByShapeGroup(List<Shape> provideShapes, ShapeGroup shapeGroup) {
-        List<Shape> listOfOneGroupShapes = new ArrayList<>();
-        for (Shape shapeEnum : provideShapes){
-            if (shapeEnum.getShapeGroup().equals(shapeGroup)){
-                listOfOneGroupShapes.add(shapeEnum);
-            }
-        }
-        return listOfOneGroupShapes;
     }
 }
