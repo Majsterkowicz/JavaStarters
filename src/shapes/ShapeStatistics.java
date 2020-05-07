@@ -66,6 +66,7 @@ public class ShapeStatistics {
                 }
             }
             mappedShapesByGroup.put(groupOfShape, oneGroupShapes);
+            showShapesDetails(mappedShapesByGroup.get(groupOfShape));
         }
         return mappedShapesByGroup;
     }
@@ -90,9 +91,11 @@ public class ShapeStatistics {
 
     private static void showTheBiggestShapeOfEachGroup(Map<ShapeGroup, List<Shape>> mappedShapes) {
         System.out.println("The biggest shapes of each group are:");
+        List<Shape> bigShape = new ArrayList<>();
         for (Map.Entry<ShapeGroup, List<Shape>> shapeEntry : mappedShapes.entrySet()) {
-            List<Shape> bigShape = findFirstBigShape(sortShapesByArea(shapeEntry.getValue()));
-            showShapesDetails(bigShape);
+           /* bigShape.clear();
+            bigShape = findFirstBigShape(sortShapesByArea(shapeEntry.getValue()));*/
+            showShapesDetails(shapeEntry.getValue());
         }
     }
 }
